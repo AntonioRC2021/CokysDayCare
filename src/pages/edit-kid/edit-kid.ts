@@ -10,6 +10,7 @@ import { KidService } from '../../services/kid/kid.service';
 })
 export class EditKidPage {
   kid: Kid;
+  cdIn = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -17,6 +18,20 @@ export class EditKidPage {
 
   ionViewWillLoad() {
     this.kid = this.navParams.get('kid');
+  }
+
+  checkIn() {
+    this.edit.editKid(this.kid).then(() => {
+      this.kid.isChecked = true;
+      this.cdIn = true;
+    })
+}
+
+  checkOut() {
+    this.edit.editKid(this.kid).then(() => {
+      this.kid.isChecked = false;
+      this.cdIn = false;
+    })
   }
 
   saveKid(kid: Kid) {

@@ -31,6 +31,25 @@
     </ion-input>
   </ion-item>
 
+  <button
+          ion-button
+          outline
+          block
+          [disabled]="cdIn"
+          (click)="checkIn()">
+      Check In
+  </button>
+
+  <button
+          ion-button
+          outline
+          block
+          [disabled]="!cdIn"
+          (click)="checkOut()"
+          color="danger">
+      Check Out
+  </button>
+
   <button ion-button
           block
           clear
