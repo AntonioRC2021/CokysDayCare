@@ -3,4 +3,5 @@ export interface Kid {
   name: string;
   lastName: string;
   parent: string;
+  isChecked?: boolean;
 }

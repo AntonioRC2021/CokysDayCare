@@ -12,20 +12,30 @@
 
       <ion-item>
         <ion-label>Name</ion-label>
-        <ion-input [(ngModel)]="kid.name" placeholder="name"></ion-input>
+        <ion-input [(ngModel)]="kid.name"
+                   placeholder="name">
+        </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Last Name</ion-label>
-        <ion-input [(ngModel)]="kid.lastName" placeholder="Last name"></ion-input>
+        <ion-input [(ngModel)]="kid.lastName"
+                   placeholder="Last name">
+        </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Parent(s)</ion-label>
-        <ion-input [(ngModel)]="kid.parent" placeholder="Parent(s)"></ion-input>
+        <ion-input [(ngModel)]="kid.parent"
+                   placeholder="Parent(s)">
+        </ion-input>
       </ion-item>
 
-      {{kid|json}}
+      <button ion-button
+              block
+              clear
+              (click)="addKid(kid)">
+          Add Kid
+      </button>
 
-      <button ion-button block clear>Add Kid</button>
 </ion-content>
