@@ -23,7 +23,7 @@ export class CargaArchivoProvider {
 
       let uploadTask: firebase.storage.UploadTask =
           storeRef.child(`img/${ nombreArchivo }`)
-                  .putString( archivo.img, 'base64', { contentType: 'image/jpeg' })
+                  .putString( archivo.img, 'base64', { contentType: 'image/jpeg' });
 
           uploadTask.on( firebase.storage.TaskEvent.STATE_CHANGED,
             ()=>{ },

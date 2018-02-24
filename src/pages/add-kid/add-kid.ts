@@ -25,7 +25,7 @@ export class AddKidPage {
               private kids: KidService,
               private toast: ToastService,
               private camara: Camera,
-              private _cap: CargaArchivoProvider) {}
+              public _cap: CargaArchivoProvider) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddKidPage');
