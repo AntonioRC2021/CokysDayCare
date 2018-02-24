@@ -4,6 +4,7 @@ import { Kid } from "../../models/kid/kid.model";
 import { KidService } from "../../services/kid/kid.service";
 import { ToastService } from "../../services/toast/toast.service";
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { CargaArchivoProvider } from "../../providers/carga-archivo/carga-archivo";
 
 @IonicPage()
 @Component({
@@ -17,12 +18,14 @@ export class AddKidPage {
     parent: ''
   }
   imagenPreview: string;
+  imagen64: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private kids: KidService,
               private toast: ToastService,
-              private camara: Camera) {}
+              private camara: Camera,
+              private _cap: CargaArchivoProvider) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddKidPage');
@@ -40,6 +43,7 @@ export class AddKidPage {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
       this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
+      this.imagen64 = imageData;
     }, (err) => {
       // Handle error
       console.log( "ERROR EN CAMARA", JSON.stringify(err) );
@@ -51,6 +55,15 @@ export class AddKidPage {
       this.toast.show(`${kid.name} added!`);
       this.navCtrl.setRoot('HomePage', { key: ref.key });
     });
+  }
+
+  crear_post(){
+
+    let archivo = {
+      img: this.imagen64
+    }
+
+    this._cap.cargar_imagen_firebase(archivo);
   }
 
 }

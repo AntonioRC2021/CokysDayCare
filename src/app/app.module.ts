@@ -11,6 +11,7 @@ import { ToastService } from "../services/toast/toast.service";
 import { Camera } from '@ionic-native/camera';
 
 import { MyApp } from './app.component';
+import { CargaArchivoProvider } from '../providers/carga-archivo/carga-archivo';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MyApp } from './app.component';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     KidService,
     ToastService,
-    Camera
+    Camera,
+    CargaArchivoProvider
   ]
 })
 export class AppModule {}
