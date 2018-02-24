@@ -10,6 +10,18 @@
 
 <ion-content padding>
 
+  <ion-item *ngIf="imagenPreview">
+    <img [src]="imagenPreview">
+  </ion-item>
+
+  <button ion-button
+          block
+          item-left
+          (click)="mostrar_camara()">
+  <ion-icon name="camera"></ion-icon>
+      Camara
+  </button>
+
       <ion-item>
         <ion-label>Name</ion-label>
         <ion-input [(ngModel)]="kid.name"

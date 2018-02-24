@@ -8,6 +8,7 @@ import { FIREBASE_CONFIG } from './firebase.credentials';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { KidService } from "../services/kid/kid.service";
 import { ToastService } from "../services/toast/toast.service";
+import { Camera } from '@ionic-native/camera';
 
 import { MyApp } from './app.component';
 
@@ -30,7 +31,8 @@ import { MyApp } from './app.component';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     KidService,
-    ToastService
+    ToastService,
+    Camera
   ]
 })
 export class AppModule {}
