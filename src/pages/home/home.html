@@ -20,7 +20,9 @@
               detail-push
               navPush="EditKidPage"
               [navParams]="{kid: kid}">
-    <img [src]="imagenPreview">
+              <ion-card>
+                <img [src]="imagenPreview">
+              </ion-card>
       {{kid.name}}
     </ion-item>
   </ion-list>
