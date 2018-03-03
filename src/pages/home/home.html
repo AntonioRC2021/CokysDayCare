@@ -1,17 +1,31 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>
+    <ion-title text-center>
       Coky'S Daycare
     </ion-title>
     <ion-buttons end>
-      <button navPush="AddKidPage" ion-button>
+      <button
+        navPush="AddKidPage"
+        ion-button>
         <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons>
+      <button
+        ion-button
+        icon-only
+        menuToggle>
+        <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
+
 <ion-content padding>
+  <ion-card>
+    <img [src]="imagenPreview">
+  </ion-card>
   <ion-list>
     <ion-list-header>
       Items
@@ -20,9 +34,6 @@
               detail-push
               navPush="EditKidPage"
               [navParams]="{kid: kid}">
-              <ion-card>
-                <img [src]="imagenPreview">
-              </ion-card>
       {{kid.name}}
     </ion-item>
   </ion-list>

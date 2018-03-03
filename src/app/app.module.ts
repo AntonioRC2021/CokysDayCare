@@ -12,10 +12,15 @@ import { Camera } from '@ionic-native/camera';
 
 import { MyApp } from './app.component';
 import { CargaArchivoProvider } from '../providers/carga-archivo/carga-archivo';
+import { SigninPage } from '../pages/signin/signin';
+import { SignupPage } from '../pages/signup/signup';
+import { AuthService } from '../services/auth';
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    SigninPage,
+    SignupPage
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,9 @@ import { CargaArchivoProvider } from '../providers/carga-archivo/carga-archivo';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    SigninPage,
+    SignupPage
   ],
   providers: [
     StatusBar,
@@ -34,7 +41,8 @@ import { CargaArchivoProvider } from '../providers/carga-archivo/carga-archivo';
     KidService,
     ToastService,
     Camera,
-    CargaArchivoProvider
+    CargaArchivoProvider,
+    AuthService
   ]
 })
 export class AppModule {}
