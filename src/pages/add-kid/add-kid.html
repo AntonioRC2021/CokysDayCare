@@ -16,10 +16,6 @@
 
 <ion-content padding>
 
-  <ion-item *ngIf="imagenPreview">
-    <img [src]="imagenPreview">
-  </ion-item>
-
   <button ion-button
           block
           item-left
@@ -47,6 +43,10 @@
         <ion-input [(ngModel)]="kid.parent"
                    placeholder="Parent(s)">
         </ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="imagenPreview">
+        <image [src]="imagenPreview">
       </ion-item>
 
       <button ion-button

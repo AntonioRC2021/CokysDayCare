@@ -15,7 +15,8 @@ export class AddKidPage {
   kid: Kid = {
     name: '',
     lastName: '',
-    parent: ''
+    parent: '',
+    image: ''
   }
   imagenPreview: string;
   imagen64: string;
