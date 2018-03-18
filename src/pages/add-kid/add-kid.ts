@@ -14,8 +14,7 @@ import { CargaArchivoProvider } from "../../providers/carga-archivo/carga-archiv
 export class AddKidPage {
   kid: Kid = {
     name: '',
-    lastName: '',
-    parent: ''
+    lastName: ''
   }
   imagenPreview: string;
   imagen64: string;
@@ -51,9 +50,12 @@ export class AddKidPage {
   }
 
   addKid(kid: Kid) {
-    this.kids.addKid(kid).then(ref => {
-      this.toast.show(`${kid.name} added!`);
-      this.navCtrl.setRoot('HomePage', { key: ref.key });
+    console.log(kid)
+    this.kids.addKid(kid)
+      .then(ref => {
+        console.log(ref)
+          this.toast.show(`${kid.name} added!`);
+          this.navCtrl.setRoot('HomePage', { key: ref.key });
     });
   }
 

@@ -1,25 +1,74 @@
-import { Injectable } from '@angular/core';
+import {Injectable, Inject} from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Parent } from "./../../models/parent/parent.model";
+import {Observable, Subject} from "rxjs/Rx";
+import {FirebaseApp} from 'angularfire2';
+import {Http} from "@angular/http";
 
 @Injectable()
 export class ParentService {
 
-  private ParentListRef = this.db.list<Parent>('parent-list')
+  constructor(private db:AngularFireDatabase,
+              @Inject(FirebaseApp) fb: FirebaseApp,
+              private http:Http) {}
 
-  constructor(private db: AngularFireDatabase) {}
+  sdkDb:any;
 
-  getParent() {
-    return this.ParentListRef;
+  parents: Parent[] = [];
+
+  private addParent( name:string, lastName:string, key?: string ){
+
+    let post: Parent = {
+      name: name,
+      lastName: lastName,
+      key: key
+    };
+
+    console.log( JSON.stringify(post) );
+
+    this.db.object(`/post/${ key }`).update(post);
+
+    this.parents.push( post );
+
   }
 
-  addKid(parent: Parent){
-    return this.ParentListRef.push(parent);
-  }
+  // addNewParent(kidId:string, parent:any): Observable<any> {
+  //
+  //        const parentToSave = Object.assign({}, parent, {kidId});
+  //
+  //        const newLessonKey = this.sdkDb.child('parents').push().key;
+  //
+  //        let dataToSave = {};
+  //
+  //
+  //
+  //        return this.firebaseUpdate(dataToSave);
+  //    }
+  //
+  //    firebaseUpdate(dataToSave) {
+  //       const subject = new Subject();
+  //
+  //       this.sdkDb.update(dataToSave)
+  //           .then(
+  //               val => {
+  //                   subject.next(val);
+  //                   subject.complete();
+  //
+  //               },
+  //               err => {
+  //                   subject.error(err);
+  //                   subject.complete();
+  //               }
+  //           );
+  //
+  //       return subject.asObservable();
+  //   }
 
-  editKid(parent: Parent) {
-    return this.ParentListRef.update(parent.key, parent);
-  }
 
 
+}
+
+interface Parent{
+  name: string;
+  lastName: string;
+  key?: string;
 }

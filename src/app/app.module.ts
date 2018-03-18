@@ -11,17 +11,21 @@ import { ParentService } from "../services/parent/parent.service";
 import { ToastService } from "../services/toast/toast.service";
 import { Camera } from '@ionic-native/camera';
 
+import 'rxjs/add/operator/map';
+
 import { MyApp } from './app.component';
 import { CargaArchivoProvider } from '../providers/carga-archivo/carga-archivo';
 import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { AuthService } from '../services/auth';
+import { EditParentComponent } from './pages/edit-parent/edit-parent.component';
 
 @NgModule({
   declarations: [
     MyApp,
     SigninPage,
-    SignupPage
+    SignupPage,
+    EditParentComponent
   ],
   imports: [
     BrowserModule,
