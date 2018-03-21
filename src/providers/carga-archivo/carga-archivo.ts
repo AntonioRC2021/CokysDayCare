@@ -10,7 +10,7 @@ export class CargaArchivoProvider {
 
   // private ImageListRef = this.afDB.list<Foto>('post')
 
-  imagenes: Foto[] = [];
+  // imagenes: Foto[] = [];
 
   constructor( public toastCtrl: ToastController,
                public afDB: AngularFireDatabase) {
@@ -29,7 +29,7 @@ export class CargaArchivoProvider {
   //   )
 
 
-  cargar_imagen_firebase( archivo: Foto){
+  cargar_imagen_firebase( archivo: ArchivoSubir){
 
     let promesa = new Promise( (resolve, reject) => {
 
@@ -96,4 +96,8 @@ export class CargaArchivoProvider {
 
   }
 
+}
+interface ArchivoSubir{
+  img: string;
+  key?: string;
 }
