@@ -17,17 +17,17 @@ export class CargaArchivoProvider {
     console.log('Hello CargaArchivoProvider Provider');
   }
 
-  getFotos() {
-    return this.ImageListRef
-      .snapshotChanges()
-      .map(
-      changes => {
-        return changes.map(c => ({
-          key: c.payload.key, ...c.payload.val()
-        }))
-      }
-    )
-  }
+  // getFotos() {
+  //   return this.ImageListRef
+  //     .snapshotChanges()
+  //     .map(
+  //     changes => {
+  //       return changes.map(c => ({
+  //         key: c.payload.key, ...c.payload.val()
+  //       }))
+  //     }
+  //   )
+
 
   cargar_imagen_firebase( archivo: Foto){
 
@@ -56,7 +56,7 @@ export class CargaArchivoProvider {
 
               let url = uploadTask.snapshot.downloadURL;
 
-              this.crear_post( url, nombreArchivo );
+              // this.crear_post( url, nombreArchivo );
 
               resolve();
             }
@@ -68,20 +68,24 @@ export class CargaArchivoProvider {
 
   }
 
-  private crear_post( url: string, nombreArchivo:string ){
-
-    let post: Foto = {
-      img: url,
-      key: nombreArchivo
-    };
-
-    console.log( JSON.stringify(post) );
-
-    this.afDB.object(`/post/${ nombreArchivo }`).update(post);
-
-    this.imagenes.push( post );
-
+  addImage(foto: Foto){
+    return this.ImageListRef.push(foto);
   }
+
+  // private crear_post( url: string, nombreArchivo:string ){
+  //
+  //   let post: Foto = {
+  //     img: url,
+  //     key: nombreArchivo
+  //   };
+  //
+  //   console.log( JSON.stringify(post) );
+  //
+  //   this.afDB.object(`/post/${ nombreArchivo }`).update(post);
+  //
+  //   this.imagenes.push( post );
+  //
+  // }
 
   mostrar_toast( mensaje: string ){
 
