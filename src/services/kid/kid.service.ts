@@ -37,10 +37,6 @@ export class KidService {
       }
     )
   }
-  //
-  // getParent() {
-  //   return this.ParentListRef;
-  // }
 
   addKid(kid: Kid){
     return this.KidListRef.push(kid);

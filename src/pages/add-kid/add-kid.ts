@@ -64,17 +64,17 @@ export class AddKidPage {
 
   addImage(foto: Foto){
 
-    this._cap.crear_post(foto)
-        .then(ref => {
-          console.log(ref)
-          this.toast.show(`${foto.img} added!`);
-        })
+    // this._cap.crear_post(foto)
+    //     .then(ref => {
+    //       console.log(ref)
+    //       this.toast.show(`${foto.img} added!`);
+    //     })
 
-    // let archivo = {
-    //   img: this.imagen64
-    // }
-    //
-    // this._cap.cargar_imagen_firebase(archivo);
+    let archivo = {
+      img: this.imagen64
+    }
+
+    this._cap.cargar_imagen_firebase(archivo);
   }
 
 }
