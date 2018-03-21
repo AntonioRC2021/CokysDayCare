@@ -1,5 +1,5 @@
 export interface Parent {
   key?: string;
-  name: string;
-  lastName: string;
+  name?: string;
+  lastName?: string;
 }

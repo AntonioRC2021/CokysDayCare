@@ -7,7 +7,6 @@ import { AngularFireModule } from 'angularfire2';
 import { FIREBASE_CONFIG } from './firebase.credentials';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { KidService } from "../services/kid/kid.service";
-import { ParentService } from "../services/parent/parent.service";
 import { ToastService } from "../services/toast/toast.service";
 import { Camera } from '@ionic-native/camera';
 
@@ -18,14 +17,12 @@ import { CargaArchivoProvider } from '../providers/carga-archivo/carga-archivo';
 import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { AuthService } from '../services/auth';
-import { EditParentComponent } from './pages/edit-parent/edit-parent.component';
 
 @NgModule({
   declarations: [
     MyApp,
     SigninPage,
-    SignupPage,
-    EditParentComponent
+    SignupPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +41,6 @@ import { EditParentComponent } from './pages/edit-parent/edit-parent.component';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     KidService,
-    ParentService,
     ToastService,
     Camera,
     CargaArchivoProvider,

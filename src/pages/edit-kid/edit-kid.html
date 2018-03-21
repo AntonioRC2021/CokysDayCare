@@ -1,4 +1,5 @@
 
+
 <ion-header>
 
   <ion-navbar color="primary">
@@ -27,12 +28,30 @@
     </ion-input>
   </ion-item>
 
-  <ion-item>
-    <ion-label>Parent(s)</ion-label>
-    <ion-input [(ngModel)]="kid.parent"
-               placeholder="Parent(s)">
+  <ion-item *ngIf="parent">
+    <ion-label>Parent First name</ion-label>
+    <ion-input [(ngModel)]="parent.name"
+               placeholder="name">
     </ion-input>
   </ion-item>
+
+  <ion-item *ngIf="parent">
+    <ion-label>Parent Last Name</ion-label>
+    <ion-input [(ngModel)]="parent.lastName"
+               placeholder="Last name">
+    </ion-input>
+  </ion-item>
+
+
+  <button
+    ion-button
+    outline
+    block
+    *ngIf="!kid.parentId"
+    navPush="AddParentPage"
+    [navParams]="{kid: kid}">
+    Add Parent
+  </button>
 
   <button
           ion-button
@@ -59,5 +78,6 @@
           (click)="saveKid(kid)">
       Save
   </button>
+
 
 </ion-content>

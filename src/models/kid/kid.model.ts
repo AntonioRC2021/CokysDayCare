@@ -1,5 +1,4 @@
-import { Parent } from "../parent/parent.model";
-import {Observable} from "rxjs/Rx";
+
 
 export interface Kid {
   key?: string;

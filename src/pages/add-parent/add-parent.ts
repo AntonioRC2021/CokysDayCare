@@ -12,7 +12,10 @@ import { ToastService } from "../../services/toast/toast.service";
 })
 export class AddParentPage {
   kid: Kid;
-  parent: Parent;
+  parent: Parent = {
+    name: '',
+    lastName: ''
+  };
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -20,22 +23,23 @@ export class AddParentPage {
               private toast: ToastService
             ) {}
 
-  ionViewWillLoad() {
+  ionViewDidLoad() {
     this.kid = this.navParams.get('kid');
+    console.log(this.kid)
   }
 
-  addParent(parent: Parent) {
+save(parent: Parent){
     console.log(parent)
     this.kids.addParent(parent)
       .then(ref => {
           this.toast.show(`${parent.name} added!`);
-          this.navCtrl.setRoot('HomePage', { key: ref.key });
+          // this.navCtrl.setRoot('HomePage', { key: ref.key });
           this.kids.editKid({
-            lastName: this.kid.lastName,
-            name: this.kid.name,
-            parentId: ref.key,
-            key: this.kid.key,
-            isChecked: this.kid.isChecked,
+         lastName: this.kid.lastName,
+         name: this.kid.name,
+         parentId: ref.key,
+         key: this.kid.key,
+         isChecked: this.kid.isChecked,
           }).then(ref => {
             console.log("el nino se actualizo ", ref)
           })

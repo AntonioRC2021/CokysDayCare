@@ -19,22 +19,62 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-</ion-header>
+  </ion-header>
 
 
-<ion-content padding>
-  <ion-card>
+  <ion-content padding>
+
+    <ion-list>
+      <ion-list-header>
+        Items
+      </ion-list-header>
+      <ion-item *ngFor="let kid of kidsList$ | async"
+                detail-push
+                navPush="EditKidPage"
+                [navParams]="{kid: kid}">
+        {{kid.name}}
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+
+
+
+
+<!-- <ion-card *ngFor="let kid of kidsList$ | async">
+
+<ion-item padding
+          detail-push
+          navPush="EditKidPage"
+          [navParams]="{kid: kid}">
+
+  <ion-avatar item-start>
     <img [src]="imagenPreview">
-  </ion-card>
-  <ion-list>
-    <ion-list-header>
-      Items
-    </ion-list-header>
-    <ion-item *ngFor="let kid of kidsList$ | async"
-              detail-push
-              navPush="EditKidPage"
-              [navParams]="{kid: kid}">
-      {{kid.name}}
-    </ion-item>
-  </ion-list>
-</ion-content>
+  </ion-avatar>
+   <h2>{{ kid.name }}</h2>
+</ion-item>
+</ion-card> -->
+
+<!--
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 col-md *ngFor="let kid of kidsList$ | async">
+
+        <ion-card>
+
+          <ion-item detail-push
+          navPush="EditKidPage"
+          [navParams]="{kid: kid}">
+
+            <h2>{{ kid.name }}</h2>
+
+              <ion-avatar item-start>
+                <img [src]="imagenPreview">
+              </ion-avatar>
+         </ion-item>
+
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+</ion-grid> -->

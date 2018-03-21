@@ -9,14 +9,38 @@ export class KidService {
 
   private KidListRef = this.db.list<Kid>('kid-list')
 
-  private ParentListRef = this.db.list<Parent>('kid-list')
+  private ParentListRef = this.db.list<Parent>('parent-list')
 
 
   constructor(private db: AngularFireDatabase) {}
 
-  getKid() {
-    return this.KidListRef;
+  getKids() {
+    return this.KidListRef
+      .snapshotChanges()
+      .map(
+      changes => {
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val()
+        }))
+      }
+    )
   }
+
+  getParents() {
+    return this.ParentListRef
+      .snapshotChanges()
+      .map(
+      changes => {
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val()
+        }))
+      }
+    )
+  }
+  //
+  // getParent() {
+  //   return this.ParentListRef;
+  // }
 
   addKid(kid: Kid){
     return this.KidListRef.push(kid);
