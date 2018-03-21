@@ -20,7 +20,7 @@ export class AddKidPage {
   }
   imagenPreview: string;
   imagen64: string;
-  foto: Foto;
+  // foto: Foto;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -33,7 +33,7 @@ export class AddKidPage {
     console.log('ionViewDidLoad AddKidPage');
   }
 
-  async mostrar_camara() {
+  mostrar_camara() {
     const options: CameraOptions = {
       quality: 50,
       destinationType: this.camara.DestinationType.DATA_URL,
@@ -42,8 +42,6 @@ export class AddKidPage {
     }
 
     this.camara.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
       this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
       this.imagen64 = imageData;
     }, (err) => {
@@ -62,18 +60,19 @@ export class AddKidPage {
     });
   }
 
-  addImage(foto: Foto){
+  crear_post(){
 
-    this._cap.addImage(foto)
-        .then(ref => {
-          console.log(ref)
-          this.toast.show(`${foto.img} added!`);
-        })
+    // this._cap.crear_post(foto)
+    //     .then(ref => {
+    //       console.log(ref)
+    //       this.toast.show(`${foto.img} added!`);
+    //     })
 
-  //   let archivo = {
-  //     img: this.imagen64
-  //   }
-  //
-  //   this._cap.cargar_imagen_firebase(archivo);
-}
+    let archivo = {
+      img: this.imagen64
+    }
+
+    this._cap.cargar_imagen_firebase(archivo);
+  }
+
 }

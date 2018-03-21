@@ -8,7 +8,7 @@ import * as firebase from 'firebase';
 @Injectable( )
 export class CargaArchivoProvider {
 
-  private ImageListRef = this.afDB.list<Foto>('post')
+  // private ImageListRef = this.afDB.list<Foto>('post')
 
   imagenes: Foto[] = [];
 
@@ -54,7 +54,7 @@ export class CargaArchivoProvider {
               console.log('Archivo subido');
               this.mostrar_toast('Imagen cargada correctamente');
 
-              let url = uploadTask.snapshot.downloadURL;
+              // let url = uploadTask.snapshot.downloadURL;
 
               // this.crear_post( url, nombreArchivo );
 
@@ -68,9 +68,9 @@ export class CargaArchivoProvider {
 
   }
 
-  addImage(foto: Foto){
-    return this.ImageListRef.push(foto);
-  }
+  // addImage(foto: Foto){
+  //   return this.ImageListRef.push(foto);
+  // }
 
   // private crear_post( url: string, nombreArchivo:string ){
   //
