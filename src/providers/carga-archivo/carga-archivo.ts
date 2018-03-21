@@ -8,11 +8,25 @@ import * as firebase from 'firebase';
 @Injectable( )
 export class CargaArchivoProvider {
 
+  private ImageListRef = this.afDB.list<Foto>('post')
+
   imagenes: Foto[] = [];
 
   constructor( public toastCtrl: ToastController,
                public afDB: AngularFireDatabase) {
     console.log('Hello CargaArchivoProvider Provider');
+  }
+
+  getFotos() {
+    return this.ImageListRef
+      .snapshotChanges()
+      .map(
+      changes => {
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val()
+        }))
+      }
+    )
   }
 
   cargar_imagen_firebase( archivo: Foto){
@@ -42,7 +56,7 @@ export class CargaArchivoProvider {
 
               let url = uploadTask.snapshot.downloadURL;
 
-              this.crear_post( url, nombreArchivo );
+              // this.crear_post( url, nombreArchivo );
 
               resolve();
             }
@@ -54,18 +68,20 @@ export class CargaArchivoProvider {
 
   }
 
-  private crear_post( url: string, nombreArchivo:string ){
+ crear_post( imagenes: Foto){
 
-    let post: Foto = {
-      img: url,
-      key: nombreArchivo
-    };
+    return this.ImageListRef.push(imagenes)
 
-    console.log( JSON.stringify(post) );
-
-    this.afDB.object(`/post/${ nombreArchivo }`).update(post);
-
-    this.imagenes.push( post );
+    // let post: Foto = {
+    //   img: url,
+    //   key: nombreArchivo
+    // };
+    //
+    // console.log( JSON.stringify(post) );
+    //
+    // this.afDB.object(`/post/${ nombreArchivo }`).update(post);
+    //
+    // this.imagenes.push( post );
 
   }
 

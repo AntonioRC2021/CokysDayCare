@@ -1,6 +1,8 @@
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Kid } from "../../models/kid/kid.model";
+import { Foto } from "../../models/image/image.model";
 import { KidService } from "../../services/kid/kid.service";
 import { ToastService } from "../../services/toast/toast.service";
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -18,6 +20,7 @@ export class AddKidPage {
   }
   imagenPreview: string;
   imagen64: string;
+  foto: Foto;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -30,7 +33,7 @@ export class AddKidPage {
     console.log('ionViewDidLoad AddKidPage');
   }
 
-  mostrar_camara() {
+  async mostrar_camara() {
     const options: CameraOptions = {
       quality: 50,
       destinationType: this.camara.DestinationType.DATA_URL,
@@ -59,13 +62,19 @@ export class AddKidPage {
     });
   }
 
-  crear_post(){
+  addImage(foto: Foto){
 
-    let archivo = {
-      img: this.imagen64
-    }
+    this._cap.crear_post(foto)
+        .then(ref => {
+          console.log(ref)
+          this.toast.show(`${foto.img} added!`);
+        })
 
-    this._cap.cargar_imagen_firebase(archivo);
+    // let archivo = {
+    //   img: this.imagen64
+    // }
+    //
+    // this._cap.cargar_imagen_firebase(archivo);
   }
 
 }

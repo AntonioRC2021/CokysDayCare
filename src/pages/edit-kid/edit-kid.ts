@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Kid } from '../../models/kid/kid.model';
+// import { Foto } from '../../models/image/image.model';
 import { Parent } from '../../models/parent/parent.model';
 import { KidService } from '../../services/kid/kid.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { Observable } from 'rxjs/Observable';
+import { CargaArchivoProvider } from '../../providers/carga-archivo/carga-archivo';
 
 @IonicPage()
 @Component({
@@ -15,12 +17,14 @@ export class EditKidPage {
   kid: Kid;
   cdIn = false;
   parent: Parent;
+  // foto: Foto;
 
   parentsList$: Observable<Parent[]>;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private edit: KidService,
+              // private imageService: CargaArchivoProvider,
               private toast: ToastService) {}
 
   ionViewWillLoad() {
@@ -35,7 +39,13 @@ export class EditKidPage {
             }
           });
          // this.getImageById(this.kid.imageKey)
-
+      //   this.imageService.getFotos().subscribe((fotos: Foto[]) => {
+      //   for (let foto of fotos ) {
+      //     if (foto.key === this.kid.imageKey) {
+      //       this.foto = foto
+      //     }
+      //   }
+      // })
       }
   }
 
