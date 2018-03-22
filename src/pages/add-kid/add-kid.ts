@@ -7,6 +7,7 @@ import { KidService } from "../../services/kid/kid.service";
 import { ToastService } from "../../services/toast/toast.service";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { storage, initializeApp } from 'firebase';
+import { FIREBASE_CONFIG } from "../../app/firebase.credentials";
 // import { CargaArchivoProvider } from "../../providers/carga-archivo/carga-archivo";
 
 @IonicPage()
@@ -19,9 +20,9 @@ export class AddKidPage {
     name: '',
     lastName: ''
   }
-  titulo: string;
-  imagenPreview: string;
-  imagen64: string;
+  // titulo: string;
+  // imagenPreview: string;
+  // imagen64: string;
   // foto: Foto;
 
   constructor(public navCtrl: NavController,
@@ -30,7 +31,9 @@ export class AddKidPage {
               private toast: ToastService,
               private camara: Camera
               // public _cap: CargaArchivoProvider
-             ) {}
+             ) {
+             initializeApp(FIREBASE_CONFIG);
+           }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddKidPage');
