@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Kid } from "../../models/kid/kid.model";
-import { Foto } from "../../models/image/image.model";
+// import { Foto } from "../../models/image/image.model";
 import { KidService } from "../../services/kid/kid.service";
 import { ToastService } from "../../services/toast/toast.service";
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -18,6 +18,7 @@ export class AddKidPage {
     name: '',
     lastName: ''
   }
+  titulo: string;
   imagenPreview: string;
   imagen64: string;
   // foto: Foto;
@@ -62,14 +63,9 @@ export class AddKidPage {
 
   crear_post(){
 
-    // this._cap.crear_post(foto)
-    //     .then(ref => {
-    //       console.log(ref)
-    //       this.toast.show(`${foto.img} added!`);
-    //     })
-
     let archivo = {
-      img: this.imagen64
+      img: this.imagen64,
+      titulo: this.titulo
     }
 
     this._cap.cargar_imagen_firebase(archivo);

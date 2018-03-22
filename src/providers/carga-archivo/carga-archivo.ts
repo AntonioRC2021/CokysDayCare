@@ -1,102 +1,64 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ToastController } from 'ionic-angular';
+import { ToastController } from "ionic-angular";
+
 import { AngularFireDatabase } from "angularfire2/database";
 import * as firebase from 'firebase';
 
-@Injectable( )
+@Injectable()
 export class CargaArchivoProvider {
 
-  // private ImageListRef = this.afDB.list<Foto>('post')
-
-  // imagenes: Foto[] = [];
-
-  constructor( public toastCtrl: ToastController,
-               public afDB: AngularFireDatabase) {
+  constructor( public toastCtrl: ToastController) {
     console.log('Hello CargaArchivoProvider Provider');
   }
 
-  // getFotos() {
-  //   return this.ImageListRef
-  //     .snapshotChanges()
-  //     .map(
-  //     changes => {
-  //       return changes.map(c => ({
-  //         key: c.payload.key, ...c.payload.val()
-  //       }))
-  //     }
-  //   )
+  cargar_imagen_firebase( archivo: ArchivoSubir ){
 
+    let promesa = new Promise( (resolve, reject) =>{
 
-  cargar_imagen_firebase( archivo: ArchivoSubir){
+    this.mostrar_toast('Cargando..')
 
-    let promesa = new Promise( (resolve, reject) => {
+    let storeRef = firebase.storage().ref();
+    let nombreArchivo:string = new Date().valueOf().toString();
 
-      this.mostrar_toast('Cargando...');
+    let uploadTask: firebase.storage.UploadTask =
+        storeRef.child(`img/${ nombreArchivo }`)
+                .putString( archivo.img, 'base64', { contentType: 'image/jpeg'} );
 
-      let storeRef = firebase.storage().ref();
-      let nombreArchivo:string = new Date().valueOf().toString();
+        uploadTask.on( firebase.storage.TaskEvent.STATE_CHANGED,
+          ()=>{ },
+          ( error ) =>{
+            console.log("ERROR EN LA CARGA");
+            console.log(JSON.stringify(error));
+            this.mostrar_toast(JSON.stringify(error));
+            reject();
+          },
+          ()=>{
+            console.log('Archivo subido');
+            this.mostrar_toast('Imagen cargada correctamente');
 
-      let uploadTask: firebase.storage.UploadTask =
-          storeRef.child(`img/${ nombreArchivo }`)
-                  .putString( archivo.img, 'base64', { contentType: 'image/jpeg' });
+            resolve();
+          }
 
-          uploadTask.on( firebase.storage.TaskEvent.STATE_CHANGED,
-            ()=>{ },
-            ( error ) =>{
-              console.log("ERROR EN LA CARGA");
-              console.log(JSON.stringify( error ));
-              this.mostrar_toast(JSON.stringify(error));
-              reject();
-            },
-            ()=>{
-              console.log('Archivo subido');
-              this.mostrar_toast('Imagen cargada correctamente');
+         )
 
-              // let url = uploadTask.snapshot.downloadURL;
-
-              // this.crear_post( url, nombreArchivo );
-
-              resolve();
-            }
-
-          )
     });
 
     return promesa;
 
   }
 
-  // addImage(foto: Foto){
-  //   return this.ImageListRef.push(foto);
-  // }
-
-  // private crear_post( url: string, nombreArchivo:string ){
-  //
-  //   let post: Foto = {
-  //     img: url,
-  //     key: nombreArchivo
-  //   };
-  //
-  //   console.log( JSON.stringify(post) );
-  //
-  //   this.afDB.object(`/post/${ nombreArchivo }`).update(post);
-  //
-  //   this.imagenes.push( post );
-  //
-  // }
-
   mostrar_toast( mensaje: string ){
 
-      this.toastCtrl.create({
-        message: mensaje,
-        duration: 2000
-      }).present();
-
+    this.toastCtrl.create({
+      message: mensaje,
+      duration: 2000
+    }).present();
   }
 
 }
+
 interface ArchivoSubir{
+  titulo:string;
   img: string;
   key?: string;
 }
