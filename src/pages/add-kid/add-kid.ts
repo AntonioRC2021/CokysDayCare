@@ -69,7 +69,8 @@ export class AddKidPage {
       titulo: this.titulo
     }
 
-    this._cap.cargar_imagen_firebase(archivo);
+    this._cap.cargar_imagen_firebase(archivo)
+      .then(()=> console.log(archivo));
   }
 
 }
