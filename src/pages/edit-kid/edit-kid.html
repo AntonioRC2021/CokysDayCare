@@ -9,7 +9,7 @@
 <ion-content padding>
 
   <ion-card>
-    <img [src]="imagenPreview">
+    <img src="assets/imgs/user.png">
   </ion-card>
 
 <ion-grid>
@@ -66,14 +66,18 @@
 
 
   <ion-item *ngIf="parent">
-    <ion-label>Parent First name</ion-label>
+    <ion-avatar item-start>
+      <img src="assets/imgs/user.png">
+    </ion-avatar>
     <ion-input [(ngModel)]="parent.name"
                placeholder="name">
     </ion-input>
   </ion-item>
 
   <ion-item *ngIf="parent">
-    <ion-label>Parent Last Name</ion-label>
+    <ion-avatar item-start>
+      <img src="assets/imgs/user.png">
+    </ion-avatar>
     <ion-input [(ngModel)]="parent.lastName"
                placeholder="Last name">
     </ion-input>
@@ -94,7 +98,6 @@
 
   <button ion-button
           block
-          clear
           (click)="saveKid(kid)">
       Save
   </button>
