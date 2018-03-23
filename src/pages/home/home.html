@@ -25,15 +25,27 @@
   <ion-content padding>
 
     <ion-list>
-      <ion-list-header>
-        Items
-      </ion-list-header>
-      <ion-item *ngFor="let kid of kidsList$ | async"
-                detail-push
-                navPush="EditKidPage"
-                [navParams]="{kid: kid}">
-        {{kid.name}}
-      </ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6 *ngFor="let kid of kidsList$ | async">
+            <ion-card>
+
+              <ion-item detail-push
+              navPush="EditKidPage"
+              [navParams]="{kid: kid}">
+              <img src="assets/imgs/user.png" margin-bottom="100" >
+
+                <h2 text-center>{{ kid.name }}</h2>
+
+             </ion-item>
+
+            </ion-card>
+
+    </ion-col>
+
+    </ion-row>
+    </ion-grid>
 
     </ion-list>
   </ion-content>
@@ -78,3 +90,13 @@
       </ion-col>
     </ion-row>
 </ion-grid> -->
+
+<!-- <ion-item
+          detail-push
+          navPush="EditKidPage"
+          [navParams]="{kid: kid}">
+
+            <img src="assets/imgs/user.png" width="100" height="100" >
+
+  {{kid.name}}
+</ion-item> -->
