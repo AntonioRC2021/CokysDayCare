@@ -2,12 +2,6 @@
 
   <ion-navbar color="primary">
     <ion-title>{{kid?.name}}</ion-title>
-    <ion-buttons end>
-      <button ion-button
-              (click)="crear_post()">
-              Crear post
-      </button>
-    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -18,27 +12,60 @@
     <img [src]="imagenPreview">
   </ion-card>
 
-  <button ion-button
-          block
-          item-left
-          (click)="mostrar_camara()">
-  <ion-icon name="camera"></ion-icon>
-      Camara
-  </button>
-
+<ion-grid>
+  <ion-row>
+    <ion-col col-6>
   <ion-item>
     <ion-label>Name</ion-label>
     <ion-input [(ngModel)]="kid.name"
                placeholder="name">
     </ion-input>
   </ion-item>
+</ion-col>
 
+<ion-col col-6>
   <ion-item>
     <ion-label>Last Name</ion-label>
     <ion-input [(ngModel)]="kid.lastName"
                placeholder="Last name">
     </ion-input>
   </ion-item>
+  </ion-col>
+
+  </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6>
+  <button
+          ion-button
+          outline
+          block
+          [disabled]="cdIn"
+          (click)="checkIn()">
+      Check In
+  </button>
+  </ion-col>
+
+<ion-col col-6>
+  <button
+          ion-button
+          outline
+          block
+          [disabled]="!cdIn"
+          (click)="checkOut()"
+          color="danger">
+      Check Out
+  </button>
+
+</ion-col>
+
+</ion-row>
+</ion-grid>
+
+
+
 
   <ion-item *ngIf="parent">
     <ion-label>Parent First name</ion-label>
@@ -65,24 +92,7 @@
     Add Parent
   </button>
 
-  <button
-          ion-button
-          outline
-          block
-          [disabled]="cdIn"
-          (click)="checkIn()">
-      Check In
-  </button>
 
-  <button
-          ion-button
-          outline
-          block
-          [disabled]="!cdIn"
-          (click)="checkOut()"
-          color="danger">
-      Check Out
-  </button>
 
   <button ion-button
           block

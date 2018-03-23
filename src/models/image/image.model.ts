@@ -1,4 +1,11 @@
-export interface Foto{
-  img: string;
-  key?:string;
-}
+// export class imageUpload{
+//
+//   $key: string;
+//   name: string;
+//   url: string;
+//   file: File;
+//
+//   constructor(file: File) {
+//     this.file = file;
+//   }
+// }

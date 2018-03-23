@@ -7,6 +7,8 @@ import { KidService } from "../../services/kid/kid.service";
 import { ToastService } from "../../services/toast/toast.service";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { CargaArchivoProvider } from "../../providers/carga-archivo/carga-archivo";
+// import { imageUpload } from '../../models/image/image.model';
+// import { UploadImageService } from "../../services/image/image.service";
 
 @IonicPage()
 @Component({
@@ -18,9 +20,9 @@ export class AddKidPage {
     name: '',
     lastName: ''
   }
-  titulo: string;
-  imagenPreview: string;
-  imagen64: string;
+  // titulo: string;
+  // imagenPreview: string;
+  // imagen64: string;
   // foto: Foto;
 
   constructor(public navCtrl: NavController,
@@ -28,29 +30,36 @@ export class AddKidPage {
               private kids: KidService,
               private toast: ToastService,
               private camara: Camera,
+              // private imService: UploadImageService
               public _cap: CargaArchivoProvider
              ) {}
+  // 
+  // ngOnInit() {
+  //   this.imService.imageUploads = this.imService.getImageUploads({limitToLast: 6})
+  // }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddKidPage');
   }
 
-  mostrar_camara() {
-    const options: CameraOptions = {
-      quality: 50,
-      destinationType: this.camara.DestinationType.DATA_URL,
-      encodingType: this.camara.EncodingType.JPEG,
-      mediaType: this.camara.MediaType.PICTURE
-    }
 
-    this.camara.getPicture(options).then((imageData) => {
-      this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
-      this.imagen64 = imageData;
-    }, (err) => {
-      // Handle error
-      console.log( "ERROR EN CAMARA", JSON.stringify(err) );
-    });
-  }
+
+  // mostrar_camara() {
+  //   const options: CameraOptions = {
+  //     quality: 50,
+  //     destinationType: this.camara.DestinationType.DATA_URL,
+  //     encodingType: this.camara.EncodingType.JPEG,
+  //     mediaType: this.camara.MediaType.PICTURE
+  //   }
+  //
+  //   this.camara.getPicture(options).then((imageData) => {
+  //     this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
+  //     this.imagen64 = imageData;
+  //   }, (err) => {
+  //     // Handle error
+  //     console.log( "ERROR EN CAMARA", JSON.stringify(err) );
+  //   });
+  // }
 
   addKid(kid: Kid) {
     console.log(kid)
@@ -62,15 +71,15 @@ export class AddKidPage {
     });
   }
 
-  crear_post(){
-
-    let archivo = {
-      img: this.imagen64,
-      titulo: this.titulo
-    }
-
-    this._cap.cargar_imagen_firebase(archivo)
-      .then(()=> console.log(archivo));
-  }
+  // crear_post(){
+  //
+  //   let archivo = {
+  //     img: this.imagen64,
+  //     titulo: this.titulo
+  //   }
+  //
+  //   this._cap.cargar_imagen_firebase(archivo)
+  //     .then(()=> console.log(archivo));
+  // }
 
 }
