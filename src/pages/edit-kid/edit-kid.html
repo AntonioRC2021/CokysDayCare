@@ -24,8 +24,12 @@
       Camara
   </button>
 
-  <ion-card>
+  <!-- <ion-card>
     <img src="assets/imgs/user.png">
+  </ion-card> -->
+
+  <ion-card *ngIf="imagenPreview">
+    <img [src]="imagenPreview">
   </ion-card>
 
 <ion-grid>
