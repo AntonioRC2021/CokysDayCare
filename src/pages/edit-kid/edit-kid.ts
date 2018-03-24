@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Kid } from '../../models/kid/kid.model';
+import { Assist } from '../../models/attendance/attendance.model';
 // import { Foto } from '../../models/image/image.model';
 import { Parent } from '../../models/parent/parent.model';
 import { KidService } from '../../services/kid/kid.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { Observable } from 'rxjs/Observable';
 import { CargaArchivoProvider } from '../../providers/carga-archivo/carga-archivo';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 @IonicPage()
 @Component({
@@ -17,6 +19,13 @@ export class EditKidPage {
   kid: Kid;
   cdIn = false;
   parent: Parent;
+  titulo: string;
+  imagenPreview: string;
+  imagen64: string;
+  // assist: Assist ={
+  //   kidId: "",
+  //   parentId: ""
+  // };
   // foto: Foto;
 
   parentsList$: Observable<Parent[]>;
@@ -24,7 +33,8 @@ export class EditKidPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private edit: KidService,
-              // private imageService: CargaArchivoProvider,
+              private camera: Camera,
+              private _cap: CargaArchivoProvider,
               private toast: ToastService) {}
 
   ionViewWillLoad() {
@@ -49,11 +59,56 @@ export class EditKidPage {
       }
   }
 
+
+  mostrar_camara(){
+
+    const options: CameraOptions = {
+      quality: 50,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    this.camera.getPicture(options).then((imageData) => {
+      this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
+      this.imagen64 = imageData;
+    }, (err) => {
+      console.log("ERROR EN CAMARA", JSON.stringify(err) );
+    });
+  }
+
+  crear_post(){
+
+    let archivo = {
+      img: this.imagen64,
+      titulo: this.titulo
+    }
+    this._cap.cargar_imagen_firebase(archivo)
+  }
+
+
+
   checkIn() {
     this.edit.editKid(this.kid).then((res) => {
       this.kid.isChecked = true;
       this.cdIn = true;
     })
+// console.log(assist)
+// this.edit.addCheck(assist)
+//   .then(ref => {
+//     this.edit.addCheck({
+//       kidId: this.kid.key,
+//       parentId: this.parent.key
+//     })
+//   })
+  //   if(this.kid){
+  //     this.edit.addCheck(assist)
+  //       .then(ref => {
+  //         console.log(ref)
+  //       })
+  //   } else {
+  //
+
+  // }
 }
 
   checkOut() {

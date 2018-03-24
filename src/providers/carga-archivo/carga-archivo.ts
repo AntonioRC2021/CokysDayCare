@@ -7,7 +7,7 @@ import * as firebase from 'firebase';
 @Injectable()
 export class CargaArchivoProvider {
 
-  imagenes: ArchivoSubir[] = [];
+  // imagenes: ArchivoSubir[] = [];
 
   constructor( public toastCtrl: ToastController,
                public afDB: AngularFireDatabase ) {
@@ -16,81 +16,51 @@ export class CargaArchivoProvider {
 
   cargar_imagen_firebase( archivo: ArchivoSubir){
 
-    let promesa = new Promise( (resolve, reject)=>{
+    let promesa = new Promise( (resolve, reject) => {
 
       this.mostrar_toast('Cargando...');
 
       let storeRef = firebase.storage().ref();
-      let nombreArchivo:string = new Date().valueOf().toString(); // 1231231231
+      let nombreArchivo:string = new Date().valueOf().toString();
 
       let uploadTask: firebase.storage.UploadTask =
           storeRef.child(`img/${ nombreArchivo }`)
-                  .putString( archivo.img, 'base64', { contentType: 'image/jpeg' }  );
+                  .putString( archivo.img, 'base64', {contentType: 'image/jpeg'});
 
-         uploadTask.on( firebase.storage.TaskEvent.STATE_CHANGED,
-            ()=>{ }, // saber el % de cuantos Mbs se han subido
-            ( error ) =>{
-              // manejo de error
+          uploadTask.on( firebase.storage.TaskEvent.STATE_CHANGED,
+            ()=>{ },
+            ( error ) => {
               console.log("ERROR EN LA CARGA");
-              console.log(JSON.stringify( error ));
-              this.mostrar_toast(JSON.stringify( error ));
+              console.log(JSON.stringify(error));
+              this.mostrar_toast(JSON.stringify(error));
               reject();
             },
             ()=>{
-              // TODO BIEN!!
               console.log('Archivo subido');
               this.mostrar_toast('Imagen cargada correctamente');
-
-              let url = uploadTask.snapshot.downloadURL;
-
-              this.crear_post( archivo.titulo, url, nombreArchivo );
-
               resolve();
             }
-
           )
-
 
 
     });
 
     return promesa;
 
-  }
-
-
-  private crear_post( titulo: string, url: string, nombreArchivo:string ){
-
-    let post: ArchivoSubir = {
-      img: url,
-      titulo: titulo,
-      key: nombreArchivo
-    };
-
-    console.log( JSON.stringify(post) );
-
-    // this.afDB.list('/post').push(post)
-    this.afDB.object(`/post/${ nombreArchivo }`).update(post);
-
-    this.imagenes.push( post );
 
   }
 
+  mostrar_toast(mensaje: string) {
 
-
-  mostrar_toast( mensaje: string ){
-
-      this.toastCtrl.create({
-        message: mensaje,
-        duration: 2000
-      }).present();
-
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 2000
+    }).present();
   }
 
 }
 
-
-interface ArchivoSubir{
+interface ArchivoSubir {
   titulo: string;
   img: string;
   key?: string;

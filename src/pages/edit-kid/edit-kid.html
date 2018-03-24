@@ -2,11 +2,24 @@
 
   <ion-navbar color="primary">
     <ion-title>{{kid?.name}}</ion-title>
+    <ion-buttons end>
+      <ion-button ion-button (click)="crear_post()">
+        Crear post
+      </ion-button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
+
+  <button ion-button
+          block
+          item-left
+          (click)="mostrar_camara()">
+          <ion-icon name="camera"></ion-icon>
+      Camara
+  </button>
 
   <ion-card>
     <img src="assets/imgs/user.png">
@@ -35,61 +48,57 @@
 
   <ion-row>
     <ion-col col-6>
-  <ion-item *ngIf="parent">
-    <ion-avatar item-start>
-      <img src="assets/imgs/user.png">
-    </ion-avatar>
-    <ion-input [(ngModel)]="parent.name"
-               placeholder="name">
-    </ion-input>
-  </ion-item>
+      <ion-item *ngIf="parent">
+         <ion-avatar item-start>
+           <img src="assets/imgs/user.png">
+         </ion-avatar>
+         <ion-input [(ngModel)]="parent.name"
+                    placeholder="name">
+         </ion-input>
+       </ion-item>
+     </ion-col>
 
-  </ion-col>
 
-  <ion-col col-6>
-
-  <ion-item *ngIf="parent">
-
-     <ion-toggle ></ion-toggle>
+    <!-- <ion-col col-6 >
+      <ion-item *ngIf="parent">
+        <ion-toggle ></ion-toggle> -->
     <!-- <ion-avatar item-start>
       <img src="assets/imgs/user.png">
     </ion-avatar> -->
-
-    <ion-input [(ngModel)]="parent.lastName"
-               placeholder="Last name">
-    </ion-input>
-  </ion-item>
-</ion-col>
+       <!-- <ion-input [(ngModel)]="parent.lastName"
+                  placeholder="Last name">
+       </ion-input>
+     </ion-item>
+  </ion-col> -->
 </ion-row>
-  </ion-grid>
+</ion-grid>
+
 
   <ion-grid>
     <ion-row>
       <ion-col col-6>
-  <button
-          ion-button
-          outline
-          block
-          [disabled]="cdIn"
-          (click)="checkIn()">
-      Check In
-  </button>
-  </ion-col>
+        <button
+                ion-button
+                outline
+                block
+                [disabled]="cdIn"
+                (click)="checkIn()">
+          Check In
+        </button>
+      </ion-col>
 
-<ion-col col-6>
-  <button
-          ion-button
-          outline
-          block
-          [disabled]="!cdIn"
-          (click)="checkOut()"
-          color="danger">
-      Check Out
-  </button>
-
-</ion-col>
-
-</ion-row>
+      <ion-col col-6>
+        <button
+                ion-button
+                outline
+                block
+                [disabled]="!cdIn"
+                (click)="checkOut()"
+                color="danger">
+          Check Out
+       </button>
+     </ion-col>
+   </ion-row>
 </ion-grid>
 
 
@@ -102,8 +111,6 @@
     [navParams]="{kid: kid}">
     Add Parent
   </button>
-
-
 
   <button ion-button
           block

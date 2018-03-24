@@ -3,6 +3,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from "rxjs/Rx";
 import { Kid } from "./../../models/kid/kid.model";
 import { Parent } from "./../../models/parent/parent.model";
+import { Assist } from "./../../models/attendance/attendance.model";
 
 @Injectable()
 export class KidService {
@@ -11,8 +12,35 @@ export class KidService {
 
   private ParentListRef = this.db.list<Parent>('parent-list')
 
+  private AssistListRef = this.db.list<Assist>('assist-list')
+
 
   constructor(private db: AngularFireDatabase) {}
+
+//   findKidByKidId(kidKey:string): Observable<Assist> {
+//     return this.db.list('assist-list', ref => ref.where('kidId', '==', kidKey))
+//   .map(results => results[0]);
+// }
+
+
+addKid(kid: Kid){
+  return this.KidListRef.push(kid);
+}
+
+addCheck(assist: Assist){
+  return this.AssistListRef.push(assist);
+}
+
+addParent(parent: Parent){
+  return this.ParentListRef.push(parent);
+}
+
+editKid(kid: Kid) {
+  return this.KidListRef.update(kid.key, kid);
+}
+editAssist(assist: Assist) {
+  return this.AssistListRef.update(assist.key, assist);
+}
 
   getKids() {
     return this.KidListRef
@@ -38,17 +66,7 @@ export class KidService {
     )
   }
 
-  addKid(kid: Kid){
-    return this.KidListRef.push(kid);
-  }
 
-  addParent(parent: Parent){
-    return this.ParentListRef.push(parent);
-  }
-
-  editKid(kid: Kid) {
-    return this.KidListRef.update(kid.key, kid);
-  }
 
 
 }
