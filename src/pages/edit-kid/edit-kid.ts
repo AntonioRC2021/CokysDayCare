@@ -89,16 +89,16 @@ export class EditKidPage {
     });
   }
 
-//   crear_post(){
-//
-//   let archivo = {
-//     img: this.imagen64,
-//     titulo: this.titulo
-//   }
-//
-//   this._cap.cargar_imagen_firebase(archivo)
-//     .then(()=> console.log(archivo));
-// }
+  crear_post(){
+
+  let archivo = {
+    img: this.imagen64,
+    titulo: this.titulo
+  }
+
+  this._cap.cargar_imagen_firebase(archivo)
+    .then(()=> console.log(archivo));
+}
 
 
 
