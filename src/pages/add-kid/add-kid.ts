@@ -18,6 +18,7 @@ export class AddKidPage {
     name: '',
     lastName: ''
   }
+  titulo: string;
   imagenPreview: string;
   imagen64: string;
   // foto: Foto;
@@ -66,7 +67,8 @@ export class AddKidPage {
   crear_post(){
 
     let archivo = {
-      img: this.imagen64
+      img: this.imagen64,
+      titulo: this.titulo
     }
 
     this._cap.cargar_imagen_firebase(archivo)
