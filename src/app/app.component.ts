@@ -27,7 +27,8 @@ export class MyApp {
     firebase.initializeApp({
       apiKey: "AIzaSyCTtvXik9XljM5jRFwHyHbpbTFVMtXixRc",
       authDomain: "cokysdaycare-92cfa.firebaseapp.com",
-      databaseURL: "https://cokysdaycare-92cfa.firebaseio.com"
+      databaseURL: "https://cokysdaycare-92cfa.firebaseio.com",
+      storageBucket: "cokysdaycare-92cfa.appspot.com"
     })
     firebase.auth().onAuthStateChanged(user => {
       if (user) {

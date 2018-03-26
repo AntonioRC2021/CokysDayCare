@@ -13,13 +13,25 @@ export class KidService {
   private ParentListRef = this.db.list<Parent>('parent-list')
 
   private AssistListRef = this.db.list<Assist>('assist-list')
+  // .valueChanges().subscribe(console.log);
 
 
-  constructor(private db: AngularFireDatabase) {}
 
-//   findKidByKidId(kidKey:string): Observable<Assist> {
-//     return this.db.list('assist-list', ref => ref.where('kidId', '==', kidKey))
-//   .map(results => results[0]);
+  constructor(private db: AngularFireDatabase) {
+    // this.assists = this.afs.collection('assist-list').valueChanges();
+
+    // const collection: AngularFirestoreCollection<Assist> = afs.collection('assist-list')
+
+    // collection.update(data)
+    // collection.delete()
+}
+
+
+//   findKidByKidId(dateCheck): Observable<Assist> {
+//
+//     return this.db.list('assist-list', ref => ref.orderBy(date))
+//   //   return afList.queryref => ref.where('date', '==', dateCheck))
+//   // .map(results => results[0]);
 // }
 
 
@@ -29,7 +41,27 @@ addKid(kid: Kid){
 
 addCheck(assist: Assist){
   return this.AssistListRef.push(assist);
+  // const afList = this.db.list('assist-list');
+  // afList.push(assist);
+  // const listObservable = afList.snapshotChanges();
+  // listObservable.subscribe();
+  // return this.AssistListRef(assist);
 }
+
+// getAssists(){
+
+  // this.assists = this.afs.collection('assist-list').valueChanges();
+  //
+  // return this.assists
+
+// this.afs.collection('assist-list', ref => ref.orderBy("date") )
+
+  // const afList = this.db.list('assist-list');
+  // afList.push(assist);
+  // const listObservable = afList.snapshotChanges();
+  // listObservable.subscribe();
+  // return this.AssistListRef.push(assist);
+// }
 
 addParent(parent: Parent){
   return this.ParentListRef.push(parent);
@@ -37,9 +69,6 @@ addParent(parent: Parent){
 
 editKid(kid: Kid) {
   return this.KidListRef.update(kid.key, kid);
-}
-editAssist(assist: Assist) {
-  return this.AssistListRef.update(assist.key, assist);
 }
 
   getKids() {
@@ -61,6 +90,19 @@ editAssist(assist: Assist) {
       changes => {
         return changes.map(c => ({
           key: c.payload.key, ...c.payload.val()
+        }))
+      }
+    )
+  }
+
+  getAssists() {
+    return this.AssistListRef
+      .snapshotChanges()
+      .map(
+      changes => {
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val()
+
         }))
       }
     )

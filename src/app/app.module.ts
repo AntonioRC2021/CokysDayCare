@@ -9,6 +9,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { KidService } from "../services/kid/kid.service";
 import { ToastService } from "../services/toast/toast.service";
 import { Camera } from '@ionic-native/camera';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import 'rxjs/add/operator/map';
 
@@ -28,7 +29,8 @@ import { AuthService } from '../services/auth';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFirestoreModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -38,8 +38,7 @@ save(parent: Parent){
          lastName: this.kid.lastName,
          name: this.kid.name,
          parentId: ref.key,
-         key: this.kid.key,
-         isChecked: this.kid.isChecked,
+         key: this.kid.key
           }).then(ref => {
             console.log("el nino se actualizo ", ref)
           })
