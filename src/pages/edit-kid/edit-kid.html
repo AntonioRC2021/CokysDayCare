@@ -73,7 +73,7 @@
                 ion-button
                 outline
                 block
-                [disabled]="cdIn"
+                [disabled]="assists.actionType === checkIn"
                 (click)="checkIn(assist)">
           Check In
         </button>
@@ -84,7 +84,7 @@
                 ion-button
                 outline
                 block
-                [disabled]="!cdIn"
+                [disabled]="cdIn === false"
                 (click)="checkOut()"
                 color="danger">
           Check Out

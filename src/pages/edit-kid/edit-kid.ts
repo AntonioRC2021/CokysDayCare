@@ -15,9 +15,9 @@ import { Observable } from 'rxjs/Observable';
 })
 export class EditKidPage {
   kid: Kid;
-  cdIn = false;
   parent: Parent;
   assist: Assist;
+  cdIn: boolean;
   // foto: Foto;
 
   parentsList$: Observable<Parent[]>;
@@ -63,6 +63,7 @@ export class EditKidPage {
       }
   }
 
+
   checkIn(assist: Assist) {
 this.edit.addCheck(assist)
   .then(ref => {
@@ -97,7 +98,7 @@ this.edit.addCheck(assist)
           parentId: this.parent.key,
           date: new Date().toString(),
           actionType: "checkOut"
-        }).then(() => this.cdIn = false)
+        }).then(() => this.cdIn === false)
       })
   //   // this.edit.editKid(this.kid).then((res) => {
   //   //   this.kid.isChecked = false;
