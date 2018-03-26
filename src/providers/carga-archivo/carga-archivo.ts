@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from 'ionic-angular';
-import { Foto } from "./../../models/image/image.model";
-import { Kid } from '../../models/kid/kid.model';
 
 import { AngularFireDatabase } from "angularfire2/database";
 import * as firebase from 'firebase';
@@ -10,10 +8,8 @@ import * as firebase from 'firebase';
 export class CargaArchivoProvider {
 
   imagenes: Foto[] = [];
-  kid: Kid;
 
-
-  private ImageListRef = this.afDB.list<Foto>('post')
+  private ImageListRef = this.afDB.list<Foto>('image-list')
 
   constructor( public toastCtrl: ToastController,
                public afDB: AngularFireDatabase) {
@@ -47,7 +43,7 @@ export class CargaArchivoProvider {
 
                       let url = uploadTask.snapshot.downloadURL;
 
-                      this.crear_post( url, nombreArchivo, this.kid.key );
+                      this.crear_post( url, nombreArchivo );
 
                       resolve();
                     }
@@ -59,17 +55,16 @@ export class CargaArchivoProvider {
 
           }
 
-  private crear_post( url: string, nombreArchivo:string, kidId:string ){
+  private crear_post( url: string, nombreArchivo:string ){
 
     let post: Foto = {
       img: url,
-      key: nombreArchivo,
-      kidId: this.kid.key
+      key: nombreArchivo
     };
 
     console.log( JSON.stringify(post) );
 
-    this.afDB.object(`/post/${ nombreArchivo }`).update(post);
+    this.afDB.object(`/image-list/${ nombreArchivo }`).update(post);
 
     this.imagenes.push( post );
 
@@ -96,4 +91,9 @@ export class CargaArchivoProvider {
     )
   }
 
+}
+
+interface Foto{
+  img: string;
+  key?:string;
 }

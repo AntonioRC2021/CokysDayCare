@@ -61,9 +61,9 @@ export class EditKidPage {
           }))
           if (this.imageService.getImages().subscribe((images: Foto[]) => {
             for (let image of images){
-              if(image.kidId === this.kid.key){
+              if(image.key === this.kid.imageKey){
                 this.image = image
-                // console.log(assist)
+                console.log(image)
               }
             }
           })){
