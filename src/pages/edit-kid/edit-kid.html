@@ -2,6 +2,12 @@
 
   <ion-navbar color="primary">
     <ion-title>{{kid?.name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button
+              (click)="crear_post()">
+              Crear post
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -16,6 +22,14 @@
   <ion-card *ngIf="imagenPreview">
     <img [src]="imagenPreview">
   </ion-card>
+
+  <button ion-button
+          block
+          item-left
+          (click)="mostrar_camara()">
+  <ion-icon name="camera"></ion-icon>
+      Camara
+  </button>
 
 <ion-grid>
   <ion-row>
@@ -73,7 +87,7 @@
                 ion-button
                 outline
                 block
-                [disabled]="assists.actionType === checkIn"
+                [disabled]="cdIn"
                 (click)="checkIn(assist)">
           Check In
         </button>
@@ -84,7 +98,7 @@
                 ion-button
                 outline
                 block
-                [disabled]="cdIn === false"
+                [disabled]="!cdIn"
                 (click)="checkOut()"
                 color="danger">
           Check Out

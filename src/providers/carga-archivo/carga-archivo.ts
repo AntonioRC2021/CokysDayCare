@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from 'ionic-angular';
+import { Foto } from "./../../models/image/image.model";
 
 import { AngularFireDatabase } from "angularfire2/database";
 import * as firebase from 'firebase';
@@ -7,14 +8,16 @@ import * as firebase from 'firebase';
 @Injectable( )
 export class CargaArchivoProvider {
 
-  imagenes: ArchivoSubir[] = [];
+  imagenes: Foto[] = [];
+
+  private ImageListRef = this.afDB.list<Foto>('post')
 
   constructor( public toastCtrl: ToastController,
                public afDB: AngularFireDatabase) {
     console.log('Hello CargaArchivoProvider Provider');
   }
 
-  cargar_imagen_firebase( archivo: ArchivoSubir){
+  cargar_imagen_firebase( archivo: Foto){
 
     let promesa = new Promise( (resolve, reject) => {
 
@@ -55,7 +58,7 @@ export class CargaArchivoProvider {
 
   private crear_post( url: string, nombreArchivo:string ){
 
-    let post: ArchivoSubir = {
+    let post: Foto = {
       img: url,
       key: nombreArchivo
     };
@@ -76,9 +79,17 @@ export class CargaArchivoProvider {
     }).present();
   }
 
-}
+  getImages() {
+    return this.ImageListRef
+      .snapshotChanges()
+      .map(
+      changes => {
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val()
 
-interface ArchivoSubir{
-  img: string;
-  key?:string;
+        }))
+      }
+    )
+  }
+
 }
