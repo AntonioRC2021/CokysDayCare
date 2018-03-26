@@ -42,7 +42,7 @@ export class CargaArchivoProvider {
               let url = uploadTask.snapshot.downloadURL;
 
               this.crear_post(archivo.titulo, url, nombreArchivo);
-              
+
               resolve();
             }
           )
@@ -65,8 +65,8 @@ export class CargaArchivoProvider {
 
     console.log(JSON.stringify(post) );
 
-    this.afDB.list('post').push(post)
-    // this.afDB.object(`/post/${ nombreArchivo }`).update(post);
+    // this.afDB.list('post').push(post)
+    this.afDB.object(`/post/${ nombreArchivo }`).update(post);
     this.imagenes.push( post );
   }
 
