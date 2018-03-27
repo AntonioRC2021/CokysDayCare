@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Kid } from '../../models/kid/kid.model';
 import { Assist } from '../../models/attendance/attendance.model';
 import { Foto } from "./../../models/image/image.model";
-import { Camera, CameraOptions } from '@ionic-native/camera';
 // import { Foto } from '../../models/image/image.model';
 import { Parent } from '../../models/parent/parent.model';
 import { KidService } from '../../services/kid/kid.service';
@@ -22,8 +21,7 @@ export class EditKidPage {
   assist: Assist;
   image: Foto
   cdIn = false;
-  imagenPreview: string;
-  imagen64: string;
+
   // foto: Foto;
 
   parentsList$: Observable<Parent[]>;
@@ -34,7 +32,7 @@ export class EditKidPage {
               public navParams: NavParams,
               private edit: KidService,
               private toast: ToastService,
-              private camara: Camera,
+
               private imageService: CargaArchivoProvider
             ) {
               this.assistsList$ = this.edit.getAssists();
@@ -80,32 +78,8 @@ export class EditKidPage {
       }
   }
 
-  mostrar_camara() {
-  const options: CameraOptions = {
-    quality: 50,
-    destinationType: this.camara.DestinationType.DATA_URL,
-    encodingType: this.camara.EncodingType.JPEG,
-    mediaType: this.camara.MediaType.PICTURE
-  }
 
-  this.camara.getPicture(options).then((imageData) => {
-    this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
-    this.imagen64 = imageData;
-  }, (err) => {
-    // Handle error
-    console.log( "ERROR EN CAMARA", JSON.stringify(err) );
-  });
-}
 
-crear_post(){
-
-     let archivo = {
-       img: this.imagen64,
-       kidid: this.kid.key
-     }
-
-     this.imageService.cargar_imagen_firebase(archivo);
-   }
 
 
   checkIn(assist: Assist) {
