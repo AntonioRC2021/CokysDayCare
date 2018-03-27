@@ -10,6 +10,7 @@ import { KidService } from "../services/kid/kid.service";
 import { ToastService } from "../services/toast/toast.service";
 import { Camera } from '@ionic-native/camera';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { ParentImageService } from "../services/parentImage/parent-image.service";
 
 import 'rxjs/add/operator/map';
 
@@ -46,7 +47,8 @@ import { AuthService } from '../services/auth';
     ToastService,
     Camera,
     CargaArchivoProvider,
-    AuthService
+    AuthService,
+    ParentImageService
   ]
 })
 export class AppModule {}

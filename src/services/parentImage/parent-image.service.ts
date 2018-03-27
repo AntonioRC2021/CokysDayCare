@@ -9,11 +9,11 @@ export class ParentImageService {
 
   imagenes: Foto[] = [];
 
-  private ImageListRef = this.afDB.list<Foto>('image-list')
+  private ImageListRef = this.afDB.list<Foto>('parentImage-list')
 
   constructor( public toastCtrl: ToastController,
                public afDB: AngularFireDatabase) {
-    console.log('Hello CargaArchivoProvider Provider');
+    console.log('Hello Parent Image');
   }
 
   cargar_imagen_firebase( archivo: Foto){
@@ -26,7 +26,7 @@ export class ParentImageService {
       let nombreArchivo:string = new Date().valueOf().toString();
 
       let uploadTask: firebase.storage.UploadTask =
-          storeRef.child(`img/${ nombreArchivo }`)
+          storeRef.child(`aparentImage/${ nombreArchivo }`)
                   .putString( archivo.img, 'base64', { contentType: 'image/jpeg' });
 
                   uploadTask.on( firebase.storage.TaskEvent.STATE_CHANGED,
@@ -64,7 +64,7 @@ export class ParentImageService {
 
     console.log( JSON.stringify(post) );
 
-    this.afDB.object(`/image-list/${ nombreArchivo }`).update(post);
+    this.afDB.object(`/parentImage-list/${ nombreArchivo }`).update(post);
 
     this.imagenes.push( post );
 

@@ -10,4 +10,4 @@ import { AddKidImagePage } from './add-kid-image';
     IonicPageModule.forChild(AddKidImagePage),
   ],
 })
-export class AddParentPageModule {}
+export class AddKidImagePageModule {}
