@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from 'ionic-angular';
+import { Foto } from "../../models/image/image.model";
 
 import { AngularFireDatabase } from "angularfire2/database";
 import * as firebase from 'firebase';
@@ -92,8 +93,8 @@ export class CargaArchivoProvider {
   }
 
 }
-
-interface Foto{
-  img: string;
-  key?:string;
-}
+// 
+// interface Foto{
+//   img?: string;
+//   key?:string;
+// }

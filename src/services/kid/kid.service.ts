@@ -3,6 +3,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from "rxjs/Rx";
 import { Kid } from "./../../models/kid/kid.model";
 import { Parent } from "./../../models/parent/parent.model";
+import { SecondParent } from "./../../models/second-parent/second-parent.model";
 import { Assist } from "./../../models/attendance/attendance.model";
 
 @Injectable()
@@ -11,6 +12,8 @@ export class KidService {
   private KidListRef = this.db.list<Kid>('kid-list')
 
   private ParentListRef = this.db.list<Parent>('parent-list')
+
+  private SecondParentListRef = this.db.list<SecondParent>('second-parent-list')
 
   private AssistListRef = this.db.list<Assist>('assist-list')
   // .valueChanges().subscribe(console.log);
@@ -63,6 +66,10 @@ addCheck(assist: Assist){
   // return this.AssistListRef.push(assist);
 // }
 
+addSecondParent(secondParent: SecondParent){
+  return this.SecondParentListRef.push(secondParent);
+}
+
 addParent(parent: Parent){
   return this.ParentListRef.push(parent);
 }
@@ -85,6 +92,18 @@ editKid(kid: Kid) {
 
   getParents() {
     return this.ParentListRef
+      .snapshotChanges()
+      .map(
+      changes => {
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val()
+        }))
+      }
+    )
+  }
+
+  getSecondParents() {
+    return this.SecondParentListRef
       .snapshotChanges()
       .map(
       changes => {

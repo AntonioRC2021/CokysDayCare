@@ -51,6 +51,18 @@
          </ion-input> -->
        </button>
      </ion-col>
+     <ion-col col-6>
+       <ion-avatar *ngIf="secondParent" item-start>
+         <img src="assets/imgs/user.png">
+       </ion-avatar>
+       <button *ngIf="secondParent" ion-button clear>
+         {{ secondParent.name}} {{ secondParent.lastName }}
+          <!--
+          <ion-input [(ngModel)]="parent.name"
+                     placeholder="name">
+          </ion-input> -->
+        </button>
+      </ion-col>
 
 
     <!-- <ion-col col-6 >
@@ -76,7 +88,7 @@
                 outline
                 block
                 [disabled]="cdIn"
-                (click)="checkIn(assist)">
+                (click)="checkIn()">
           Check In
         </button>
       </ion-col>
@@ -104,6 +116,15 @@
     navPush="AddParentPage"
     [navParams]="{kid: kid}">
     Add Parent
+  </button>
+
+  <button
+    ion-button
+    outline
+    block
+    navPush="AddSecondParentPage"
+    [navParams]="{kid: kid}">
+    Add sParent
   </button>
 
   <button

@@ -49,13 +49,13 @@ export class AddKidImagePage {
   });
 }
 
-crear_post(image: Foto){
+crear_post(){
 
      let archivo = {
        img: this.imagen64
      }
 
-     this.imageService.cargar_imagen_firebase(archivo);
+     this.imageService.cargar_imagen_firebase(archivo)
      // .then(ref => {
      //   this.toast.show('image added');
      //   this.kids.editKid({
@@ -68,7 +68,7 @@ crear_post(image: Foto){
    }
 
 
-// 
+//
 // save(image: Foto){
 //     console.log(image)
 //     this.imageService.cargar_imagen_firebase(archivo)

@@ -5,6 +5,7 @@ import { Assist } from '../../models/attendance/attendance.model';
 import { Foto } from "./../../models/image/image.model";
 // import { Foto } from '../../models/image/image.model';
 import { Parent } from '../../models/parent/parent.model';
+import { SecondParent } from '../../models/second-parent/second-parent.model';
 import { KidService } from '../../services/kid/kid.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { Observable } from 'rxjs/Observable';
@@ -18,6 +19,7 @@ import { CargaArchivoProvider,  } from '../../providers/carga-archivo/carga-arch
 export class EditKidPage {
   kid: Kid;
   parent: Parent;
+  secondParent:SecondParent;
   assist: Assist;
   image: Foto
   cdIn = false;
@@ -25,7 +27,11 @@ export class EditKidPage {
   // foto: Foto;
 
   parentsList$: Observable<Parent[]>;
+
+  secondParentsList$: Observable<SecondParent[]>;
+
   assistsList$: Observable<Assist[]>;
+  
   imagesList$: Observable<Foto[]>;
 
   constructor(public navCtrl: NavController,
@@ -36,6 +42,8 @@ export class EditKidPage {
               private imageService: CargaArchivoProvider
             ) {
               this.assistsList$ = this.edit.getAssists();
+              this.imagesList$ = this.imageService.getImages();
+
             }
 
   ionViewWillLoad() {
@@ -64,9 +72,16 @@ export class EditKidPage {
                 console.log(image)
               }
             }
-          })){
+          }))
+              this.edit.getSecondParents().subscribe((secondParents: SecondParent[]) => {
+                for (let secondParent of secondParents ) {
+                  if (secondParent.key === this.kid.secondParentId) {
+                    this.secondParent = secondParent
+                  }
+                }
+              })
 
-          };
+
          // this.getImageById(this.kid.imageKey)
       //   this.imageService.getFotos().subscribe((fotos: Foto[]) => {
       //   for (let foto of fotos ) {
@@ -77,10 +92,6 @@ export class EditKidPage {
       // })
       }
   }
-
-
-
-
 
   checkIn(assist: Assist) {
 this.edit.addCheck(assist)

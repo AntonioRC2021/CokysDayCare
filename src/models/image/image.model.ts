@@ -1,7 +1,6 @@
 export interface Foto{
 
-
-    img: string;
+    img?: string;
     key?:string;
 
 }
