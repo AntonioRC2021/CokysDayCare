@@ -8,8 +8,6 @@ import * as firebase from 'firebase';
 @Injectable( )
 export class CargaArchivoProvider {
 
-  imagenes: Foto[] = [];
-
   private ImageListRef = this.afDB.list<Foto>('image-list')
 
   constructor( public toastCtrl: ToastController,
@@ -67,7 +65,6 @@ export class CargaArchivoProvider {
 
     this.afDB.object(`/image-list/${ nombreArchivo }`).update(post);
 
-    this.imagenes.push( post );
 
   }
 
@@ -77,6 +74,10 @@ export class CargaArchivoProvider {
       message: mensaje,
       duration: 2000
     }).present();
+  }
+
+  addImage(image: Foto){
+    return this.ImageListRef.push(image);
   }
 
   getImages() {
@@ -93,7 +94,7 @@ export class CargaArchivoProvider {
   }
 
 }
-// 
+//
 // interface Foto{
 //   img?: string;
 //   key?:string;
