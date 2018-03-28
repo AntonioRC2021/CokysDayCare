@@ -49,39 +49,40 @@ export class AddKidImagePage {
   });
 }
 
-crear_post(){
+crear_post(image: Foto){
 
      let archivo = {
        img: this.imagen64
      }
 
      this.imageService.cargar_imagen_firebase(archivo);
-     // .then(ref => {
-     //   this.toast.show('image added');
-     //   this.kids.editKid({
-     //     lastName: this.kid.lastName,
-     //     name: this.kid.name,
-     //     imageKey: ref.key
-     //   })
-     //
-     // });
+     this.imageService.addImage(image)
+     .then(ref => {
+       this.toast.show('image added');
+       this.kids.editKid({
+         lastName: this.kid.lastName,
+         name: this.kid.name,
+         imageKey: ref.key
+       })
+
+     });
    }
 
 
 //
-save(image: Foto){
-    console.log(image)
-    this.imageService.addImage(image)
-      .then(ref => {
-          this.toast.show("added!");
-          // this.navCtrl.setRoot('HomePage', { key: ref.key });
-          this.kids.editKid({
-         lastName: this.kid.lastName,
-         name: this.kid.name,
-         imageKey: ref.key,
-          }).then(ref => {
-            console.log("el nino se actualizo ", ref)
-          })
-    });
-  }
+// save(image: Foto){
+//     console.log(image)
+//     this.imageService.addImage(image)
+//       .then(ref => {
+//           this.toast.show("added!");
+//           // this.navCtrl.setRoot('HomePage', { key: ref.key });
+//           this.kids.editKid({
+//          lastName: this.kid.lastName,
+//          name: this.kid.name,
+//          imageKey: ref.key,
+//           }).then(ref => {
+//             console.log("el nino se actualizo ", ref)
+//           })
+//     });
+//   }
 }
