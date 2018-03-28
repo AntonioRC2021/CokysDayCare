@@ -64,7 +64,7 @@ crear_post(image: Foto){
      //   })
      // })
 
-     this.imageService.addImage(archivo)
+     this.imageService.addImage(image)
      .then(ref => {
        this.toast.show('image added');
        this.kids.editKid({
