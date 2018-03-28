@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from 'ionic-angular';
 import { Foto } from "../../models/image/image.model";
-import { Kid } from "../../models/kid/kid.model";
-
-import { KidService } from "../../services/kid/kid.service";
 
 import { AngularFireDatabase } from "angularfire2/database";
 import * as firebase from 'firebase';
@@ -12,13 +9,11 @@ import * as firebase from 'firebase';
 export class CargaArchivoProvider {
 
   imagenes: Foto[] = [];
-  kid: Kid;
 
   private ImageListRef = this.afDB.list<Foto>('image-list')
 
   constructor( public toastCtrl: ToastController,
-               public afDB: AngularFireDatabase,
-             private kids: KidService) {
+               public afDB: AngularFireDatabase) {
     console.log('Hello CargaArchivoProvider Provider');
   }
 
@@ -32,7 +27,7 @@ export class CargaArchivoProvider {
       let nombreArchivo:string = new Date().valueOf().toString();
 
       let uploadTask: firebase.storage.UploadTask =
-          storeRef.child(`img/${ nombreArchivo }`)
+          storeRef.child(`img`)
                   .putString( archivo.img, 'base64', { contentType: 'image/jpeg' });
 
                   uploadTask.on( firebase.storage.TaskEvent.STATE_CHANGED,
@@ -47,16 +42,9 @@ export class CargaArchivoProvider {
                       console.log('Archivo subido');
                       this.mostrar_toast('Imagen cargada correctamente');
 
-                      let url = uploadTask.snapshot.downloadURL;
+                      // let url = uploadTask.snapshot.downloadURL;
 
-                      this.addImage( this.addImage ).then(ref => {
-                        this.kids.editKid({
-                          lastName: this.kid.lastName,
-                          name: this.kid.name,
-                          imageKey: ref.key
-                        })
-
-                      });
+                      this.addImage( archivo );
 
                       resolve();
                     }
@@ -68,20 +56,24 @@ export class CargaArchivoProvider {
 
           }
 
-  private crear_post( url: string, nombreArchivo:string ){
+      addImage(image: Foto){
+        return this.ImageListRef.push(image);
+      }
 
-    let post: Foto = {
-      img: url,
-      key: nombreArchivo
-    };
-
-    console.log( JSON.stringify(post) );
-
-    this.afDB.object(`/image-list/${ nombreArchivo }`).update(post);
-
-    this.imagenes.push( post );
-
-  }
+  // private crear_post( url: string, nombreArchivo:string ){
+  //
+  //   let post: Foto = {
+  //     img: url,
+  //     key: nombreArchivo
+  //   };
+  //
+  //   console.log( JSON.stringify(post) );
+  //
+  //   this.afDB.object(`/image-list/${ nombreArchivo }`).update(post);
+  //
+  //   this.imagenes.push( post );
+  //
+  // }
 
   mostrar_toast(mensaje: string) {
 
@@ -90,10 +82,6 @@ export class CargaArchivoProvider {
       duration: 2000
     }).present();
   }
-
-  addImage(image: Foto){
-  return this.ImageListRef.push(image);
-}
 
   getImages() {
     return this.ImageListRef

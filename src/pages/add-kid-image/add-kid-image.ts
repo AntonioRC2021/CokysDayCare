@@ -55,7 +55,14 @@ crear_post(image: Foto){
        img: this.imagen64
      }
 
-     this.imageService.cargar_imagen_firebase(archivo);
+     // this.imageService.cargar_imagen_firebase(archivo).then(ref => {
+     //   this.toast.show('image added');
+     //   this.kids.editKid({
+     //     lastName: this.kid.lastName,
+     //     name: this.kid.name,
+     //     imageKey: ref.key
+     //   })
+     // })
 
      this.imageService.addImage(archivo)
      .then(ref => {

@@ -23,6 +23,10 @@ export class EditKidPage {
   assist: Assist;
   image: Foto
   cdIn = false;
+  today = new Date();
+  day = this.today.getDay().toString();
+  month = this.today.getMonth().toString()+1; //January is 0!
+  year = this.today.getFullYear().toString();
 
   // foto: Foto;
 
@@ -31,7 +35,7 @@ export class EditKidPage {
   secondParentsList$: Observable<SecondParent[]>;
 
   assistsList$: Observable<Assist[]>;
-  
+
   imagesList$: Observable<Foto[]>;
 
   constructor(public navCtrl: NavController,
@@ -43,7 +47,6 @@ export class EditKidPage {
             ) {
               this.assistsList$ = this.edit.getAssists();
               this.imagesList$ = this.imageService.getImages();
-
             }
 
   ionViewWillLoad() {
@@ -101,8 +104,26 @@ this.edit.addCheck(assist)
       parentId: this.parent.key,
       date: new Date().toString(),
       actionType: "checkIn"
-    }).then(() => this.cdIn = true)
-  })
+    }).then(_ => {
+      if(this.kid) {
+        if (this.edit.getAssists().subscribe((assists: Assist[]) => {
+          for (let assist of assists){
+            if(assist.date === this.today.getDay().toString()){
+              if(this.assist.actionType === "checkIn"){
+                this.cdIn = true
+
+              }
+              // console.log(assist)
+            }
+          }
+        }))
+      console.log(_)}
+    })
+  // }).then(() => this.cdIn = true)
+
+})
+// }).then(() => this.cdIn = true)
+
 
   //   if(this.kid){
   //     this.edit.addCheck(assist)
@@ -127,7 +148,24 @@ this.edit.addCheck(assist)
           parentId: this.parent.key,
           date: new Date().toString(),
           actionType: "checkOut"
-        }).then(() => this.cdIn = false)
+        })
+        // .then(_ => {
+        //   if(this.kid) {
+        //     if (this.edit.getAssists().subscribe((assists: Assist[]) => {
+        //       for (let assist of assists){
+        //         if(assist.date === this.today.getDay().toString()){
+        //           if(this.assist.actionType === "checkOut"){
+        //             this.cdIn = false
+        //
+        //           }
+        //           // console.log(assist)
+        //         }
+        //       }
+        //     }))
+        //   console.log(_)}
+        // })
+      // }).then(() => this.cdIn = true)
+
       })
   //   // this.edit.editKid(this.kid).then((res) => {
   //   //   this.kid.isChecked = false;
