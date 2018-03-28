@@ -44,7 +44,7 @@ export class CargaArchivoProvider {
 
                       let url = uploadTask.snapshot.downloadURL;
 
-                      this.crear_post( url, nombreArchivo );
+                      this.addImage( this.addImage );
 
                       resolve();
                     }
