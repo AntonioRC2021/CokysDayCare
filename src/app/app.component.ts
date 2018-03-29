@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { SigninPage } from "../pages/signin/signin";
 import { SignupPage } from "../pages/signup/signup";
 import { HomePage } from "../pages/home/home";
+import { EditKidPage } from "../pages/edit-kid/edit-kid";
 import firebase from 'firebase';
 import { AuthService } from "../services/auth";
 
@@ -16,6 +17,7 @@ export class MyApp {
   signinpage = SigninPage;
   signuppage = SignupPage;
   homepage = HomePage;
+  editKid = EditKidPage;
   isAuthenticated = false;
   @ViewChild('nav') nav: NavController;
 

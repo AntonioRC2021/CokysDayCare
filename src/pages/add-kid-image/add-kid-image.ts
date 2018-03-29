@@ -66,8 +66,21 @@ crear_post(image: Foto){
      //     name: this.kid.name,
      //     imageKey: ref.key
      //   })
-     // 
+     //
      // });
+   }
+
+   save(image: Foto) {
+     this.imageService.addImage(image)
+     .then(ref => {
+       this.kids.editKid({
+         lastName: this.kid.lastName,
+         name: this.kid.name,
+         imageKey: ref.key
+       }). then(ref =>{
+         console.log("el nino se actualizo", ref)
+       })
+     })
    }
 
 
