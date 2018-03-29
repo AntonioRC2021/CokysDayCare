@@ -46,7 +46,7 @@ export class CargaArchivoProvider {
 
                       this.crear_post( url, nombreArchivo );
 
-                      this.addImage(archivo);
+                      this.addImage(archivo)
 
                       resolve();
                     }
@@ -67,7 +67,9 @@ export class CargaArchivoProvider {
 
     console.log( JSON.stringify(post) );
 
-    this.afDB.object(`/image-list/${ nombreArchivo }`).update(post);
+    this.ImageListRef.push(post)
+
+    // this.ImageListRef(`/image-list/${ nombreArchivo }`).push(post);
 
     this.imagenes.push( post );
 

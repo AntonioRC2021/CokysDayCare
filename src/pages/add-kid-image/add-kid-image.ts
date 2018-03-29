@@ -55,8 +55,7 @@ crear_post(image: Foto){
 
      let archivo = {
        img: this.imagen64,
-       kidId: this.kid.key,
-       key: this.imagenPreview
+       kidId: this.kid.key
      }
 
      this.imageService.cargar_imagen_firebase(archivo);
