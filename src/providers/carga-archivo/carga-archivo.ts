@@ -46,6 +46,8 @@ export class CargaArchivoProvider {
 
                       this.crear_post( url, nombreArchivo );
 
+                      this.addImage(archivo);
+
                       resolve();
                     }
 

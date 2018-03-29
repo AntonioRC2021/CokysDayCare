@@ -21,8 +21,7 @@ export class EditKidPage {
   parent: Parent;
   secondParent:SecondParent;
   assist: Assist;
-  image: Foto;
-
+  image: Foto
   cdIn = false;
   today = new Date();
   day = this.today.getDay().toString();
@@ -48,6 +47,8 @@ export class EditKidPage {
             ) {
               this.assistsList$ = this.edit.getAssists();
               this.imagesList$ = this.imageService.getImages();
+              
+
             }
 
   ionViewWillLoad() {
@@ -65,13 +66,13 @@ export class EditKidPage {
             for (let assist of assists){
               if(assist.kidId === this.kid.key){
                 this.assist = assist
-                // console.log(this.assist)
+                // console.log(assist)
               }
             }
           }))
           if (this.imageService.getImages().subscribe((images: Foto[]) => {
             for (let image of images){
-              if(image.kidId === this.kid.key){
+              if(image.key === this.kid.imageKey){
                 this.image = image
                 console.log(image)
               }
