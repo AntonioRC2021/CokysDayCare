@@ -49,6 +49,8 @@ export class AddKidImagePage {
   });
 }
 
+
+
 crear_post(image: Foto){
 
      let archivo = {

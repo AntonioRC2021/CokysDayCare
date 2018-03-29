@@ -28,6 +28,7 @@ export class EditKidPage {
   day = this.today.getDay().toString();
   month = this.today.getMonth().toString()+1; //January is 0!
   year = this.today.getFullYear().toString();
+  currentDate = (this.year + this.month + this.day);
 
   // foto: Foto;
 
@@ -67,6 +68,7 @@ export class EditKidPage {
             for (let assist of assists){
               if(assist.kidId === this.kid.key){
                 this.assist = assist
+
                 // console.log(assist)
               }
             }
@@ -75,7 +77,7 @@ export class EditKidPage {
             for (let image of images){
               if(image.kidId === this.kid.key){
                 this.image = image
-                console.log(image)
+                // console.log(image)
               }
             }
           }))
@@ -111,12 +113,8 @@ this.edit.addCheck(assist)
       if(this.kid) {
         if (this.edit.getAssists().subscribe((assists: Assist[]) => {
           for (let assist of assists){
-            if(assist.date === this.today.getDay().toString()){
-              if(this.assist.actionType === "checkIn"){
-                this.cdIn = true
-
-              }
-              // console.log(assist)
+            if(this.currentDate === this.assist.date){
+              // console.log(this.assist)
             }
           }
         }))
