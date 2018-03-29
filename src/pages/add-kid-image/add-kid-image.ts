@@ -75,6 +75,7 @@ crear_post(image: Foto){
    save(image: Foto) {
      this.imageService.addImage(image)
      .then(ref => {
+       console.log(image)
        this.kids.editKid({
          lastName: this.kid.lastName,
          name: this.kid.name,
