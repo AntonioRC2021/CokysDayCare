@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from 'ionic-angular';
 import { Foto } from "../../models/image/image.model";
+import { Kid } from "../../models/kid/kid.model";
 
 import { AngularFireDatabase } from "angularfire2/database";
 import * as firebase from 'firebase';
 
 @Injectable( )
 export class CargaArchivoProvider {
-
+  kid:Kid
   imagenes: Foto[] = [];
 
   private ImageListRef = this.afDB.list<Foto>('image-list')
@@ -27,7 +28,7 @@ export class CargaArchivoProvider {
       let nombreArchivo:string = new Date().valueOf().toString();
 
       let uploadTask: firebase.storage.UploadTask =
-          storeRef.child(`img`)
+          storeRef.child(`img/${ nombreArchivo }`)
                   .putString( archivo.img, 'base64', { contentType: 'image/jpeg' });
 
                   uploadTask.on( firebase.storage.TaskEvent.STATE_CHANGED,
@@ -42,9 +43,9 @@ export class CargaArchivoProvider {
                       console.log('Archivo subido');
                       this.mostrar_toast('Imagen cargada correctamente');
 
-                      // let url = uploadTask.snapshot.downloadURL;
+                      let url = uploadTask.snapshot.downloadURL;
 
-                      this.addImage( archivo );
+                      this.crear_post( url, nombreArchivo, this.kid.key );
 
                       resolve();
                     }
@@ -56,24 +57,21 @@ export class CargaArchivoProvider {
 
           }
 
-      addImage(image: Foto){
-        return this.ImageListRef.push(image);
-      }
+  private crear_post( url: string, nombreArchivo:string, kidKey: string ){
 
-  // private crear_post( url: string, nombreArchivo:string ){
-  //
-  //   let post: Foto = {
-  //     img: url,
-  //     key: nombreArchivo
-  //   };
-  //
-  //   console.log( JSON.stringify(post) );
-  //
-  //   this.afDB.object(`/image-list/${ nombreArchivo }`).update(post);
-  //
-  //   this.imagenes.push( post );
-  //
-  // }
+    let post: Foto = {
+      img: url,
+      key: nombreArchivo,
+      kidId: this.kid.key
+    };
+
+    console.log( JSON.stringify(post) );
+
+    this.afDB.object(`/image-list/${ nombreArchivo }`).update(post);
+
+    this.imagenes.push( post );
+
+  }
 
   mostrar_toast(mensaje: string) {
 
