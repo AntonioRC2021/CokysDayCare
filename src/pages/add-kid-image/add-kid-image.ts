@@ -62,11 +62,10 @@ crear_post(image: Foto){
 
      this.imageService.addImage(archivo)
      .then(ref => {
-       this.imageService.getImages()
        this.kids.editKid({
          lastName: this.kid.lastName,
          name: this.kid.name,
-         imageKey: ref.key
+         imageKey: "12345"
        })
 
      });

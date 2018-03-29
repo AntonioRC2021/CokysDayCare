@@ -109,30 +109,30 @@ this.edit.addCheck(assist)
     })
   // }).then(() => this.cdIn = true)
 
-}).then( _ => {
-  if (this.edit.getAssists().subscribe((assists: Assist[]) => {
-    for (let assist of assists){
-      if(assist.kidId === this.kid.key){
-        this.assist = assist
-
-        let kidAssist = this.assist
-
-        let date = new Date();
-
-        date.getFullYear()
-
-        if (kidAssist === date){
-          if(assist.actionType === "checkIn"){
-            this.cdIn = true
-          }
-        }
+// }).then( _ => {
+//   if (this.edit.getAssists().subscribe((assists: Assist[]) => {
+//     for (let assist of assists){
+//       if(assist.kidId === this.kid.key){
+//         this.assist = assist
+//
+//         let kidAssist = this.assist
+//
+//         let date = new Date();
+//
+//         date.getFullYear();
+//
+//         if (kidAssist === date){
+//           if(assist.actionType === "checkIn"){
+//             this.cdIn = false
+//           }
+//         }
 
         // console.log(kidAssist)
-      }
-    }
-  })) {
+  //     }
+  //   }
+  // })) {
 
-  }
+  // }
 })
 // }).then(() => this.cdIn = true)
 
