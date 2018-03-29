@@ -20,6 +20,7 @@ export class EditKidPage {
   kid: Kid;
   parent: Parent;
   secondParent:SecondParent;
+  imagenPreview: string;
   assist: Assist;
   image: Foto
   cdIn = false;
@@ -47,7 +48,7 @@ export class EditKidPage {
             ) {
               this.assistsList$ = this.edit.getAssists();
               this.imagesList$ = this.imageService.getImages();
-              
+
 
             }
 
@@ -72,7 +73,7 @@ export class EditKidPage {
           }))
           if (this.imageService.getImages().subscribe((images: Foto[]) => {
             for (let image of images){
-              if(image.key === this.kid.imageKey){
+              if(image.kidId === this.kid.key){
                 this.image = image
                 console.log(image)
               }
