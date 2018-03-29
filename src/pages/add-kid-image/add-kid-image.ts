@@ -58,7 +58,7 @@ crear_post(image: Foto){
 
      this.imageService.cargar_imagen_firebase(archivo);
 
-     this.imageService.addImage(archivo)
+     this.imageService.addImage(image)
      .then(ref => {
        this.toast.show('image added');
        this.kids.editKid({
@@ -66,7 +66,7 @@ crear_post(image: Foto){
          name: this.kid.name,
          imageKey: ref.key
        })
-     
+
      });
    }
 
