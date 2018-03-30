@@ -42,73 +42,76 @@ export class AddKidImagePage {
     console.log(this.kid)
   }
 
-  async takePhoto(){
-     try{
+//   async takePhoto(){
+//      try{
+//
+//     const options: CameraOptions = {
+//       quality: 50,
+//       targetWidth: 600,
+//       targetHeight: 600,
+//       destinationType: this.camara.DestinationType.DATA_URL,
+//       encodingType: this.camara.MediaType.PICTURE
+//     }
+//
+//   const result = await this.camara.getPicture(options);
+//
+//   const image = `data:image/jpeg;base64,${result}`;
+//
+//   const pictures = storage().ref('pictures');
+//   pictures.putString(image, 'data_url');
+//
+//
+//   this.ImageListRef.push().then(ref => {
+//     this.kids.editKid({
+//              lastName: this.kid.lastName,
+//              name: this.kid.name,
+//              imageKey: ref.key
+//            }).subscribe()
+//   })
+//
+//
+//   }
+//   catch (e) {
+//     console.error(e);
+//   }
+// }
 
-    const options: CameraOptions = {
-      quality: 50,
-      targetWidth: 600,
-      targetHeight: 600,
-      destinationType: this.camara.DestinationType.DATA_URL,
-      encodingType: this.camara.MediaType.PICTURE
-    }
-
-  const result = await this.camara.getPicture(options);
-
-  const image = `data:image/jpeg;base64,${result}`;
-
-  const pictures = storage().ref('pictures');
-  pictures.putString(image, 'data_url');
-
-  this.ImageListRef.push(result).then(ref => {
-    this.kids.editKid({
-             lastName: this.kid.lastName,
-             name: this.kid.name,
-             imageKey: ref.key
-           })
-  })
-
-
+  mostrar_camara() {
+  const options: CameraOptions = {
+    quality: 50,
+    destinationType: this.camara.DestinationType.DATA_URL,
+    encodingType: this.camara.EncodingType.JPEG,
+    mediaType: this.camara.MediaType.PICTURE
   }
-  catch (e) {
-    console.error(e);
-  }
+
+  this.camara.getPicture(options).then((imageData) => {
+    this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
+    this.imagen64 = imageData;
+  }, (err) => {
+    // Handle error
+    console.log( "ERROR EN CAMARA", JSON.stringify(err) );
+  });
 }
 
-//   mostrar_camara() {
-//   const options: CameraOptions = {
-//     quality: 50,
-//     destinationType: this.camara.DestinationType.DATA_URL,
-//     encodingType: this.camara.EncodingType.JPEG,
-//     mediaType: this.camara.MediaType.PICTURE
-//   }
-//
-//   this.camara.getPicture(options).then((imageData) => {
-//     this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
-//     this.imagen64 = imageData;
-//   }, (err) => {
-//     // Handle error
-//     console.log( "ERROR EN CAMARA", JSON.stringify(err) );
-//   });
-// }
-//
-//
-//
-// crear_post(image: Foto){
-//
-//      let archivo = {
-//        img: this.imagen64
-//      }
-//
-//      this.imageService.cargar_imagen_firebase(archivo).then(ref => {
-//        this.kids.editKid({
-//          lastName: this.kid.lastName,
-//          name: this.kid.name,
-//          imageKey: archivo.img
-//        })
-//
-//      });
-//    }
+
+
+crear_post(){
+
+     let archivo = {
+       img: this.imagen64
+     }
+
+     this.imageService.cargar_imagen_firebase(archivo).then(ref => {
+       this.kids.editKid({
+         lastName: this.kid.lastName,
+         name: this.kid.name,
+         imageKey: archivo.img
+       }).then(ref =>{
+               console.log("el nino se actualizo", ref)
+             })
+
+     });
+   }
 
    //   this.imageService.addImage(archivo)
    //   .then(ref => {
@@ -134,7 +137,7 @@ export class AddKidImagePage {
    //       })
    //     })
    //   })
-
+   //
    // }
 
 
