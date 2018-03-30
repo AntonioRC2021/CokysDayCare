@@ -66,6 +66,10 @@ export class EditKidPage {
 
                 let kidAssist = this.assist
 
+                // let today = new Date()
+
+
+
                 // console.log(kidAssist)
               }
             }
@@ -107,7 +111,7 @@ this.edit.addCheck(assist)
       date: new Date().toString(),
       actionType: "checkIn"
     })
-  // }).then(() => this.cdIn = true)
+  }).then(() => this.cdIn = true)
 
 // }).then( _ => {
 //   if (this.edit.getAssists().subscribe((assists: Assist[]) => {
@@ -129,11 +133,11 @@ this.edit.addCheck(assist)
 
         // console.log(kidAssist)
   //     }
-  //   }
+    // }
   // })) {
 
   // }
-})
+// })
 // }).then(() => this.cdIn = true)
 
 

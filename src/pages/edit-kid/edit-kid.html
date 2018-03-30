@@ -19,27 +19,25 @@
 
 <ion-grid>
   <ion-row>
-    <ion-col col-6>
-  <ion-item>
-    <ion-input [(ngModel)]="kid.name"
-               placeholder="name">
-    </ion-input>
+    <ion-col col-12 text-center>
+  <ion-item text-center>
+    <h2>{{kid.name}} {{ kid.lastName}}</h2>
   </ion-item>
 </ion-col>
 
-<ion-col col-6>
+<!-- <ion-col col-6>
   <ion-item>
     <ion-input [(ngModel)]="kid.lastName"
                placeholder="Last name">
     </ion-input>
   </ion-item>
-  </ion-col>
+  </ion-col> -->
 
   </ion-row>
 
 
   <ion-row>
-    <ion-col col-6>
+    <ion-col col-6 text-center>
       <ion-avatar item-start>
         <img src="assets/imgs/user.png">
       </ion-avatar>
@@ -51,12 +49,12 @@
          </ion-input> -->
        </button>
      </ion-col>
-     <ion-col col-6>
+     <ion-col col-6 text-center>
 
        <ion-avatar *ngIf="secondParent" item-start>
          <img src="assets/imgs/user.png">
        </ion-avatar>
-       <button *ngIf="secondParent" ion-button clear>
+       <button *ngIf="secondParent" ion-button clear >
          {{ secondParent.name}} {{ secondParent.lastName }}
           <!--
           <ion-input [(ngModel)]="parent.name"

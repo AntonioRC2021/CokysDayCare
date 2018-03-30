@@ -22,7 +22,7 @@
   </ion-header>
 
 
-  <ion-content padding>
+  <ion-content padding >
 
     <ion-list>
 
@@ -34,7 +34,8 @@
               <ion-item detail-push
               navPush="EditKidPage"
               [navParams]="{kid: kid}">
-              <img src="assets/imgs/user.png" margin-bottom="100" >
+              <!-- <img src="assets/imgs/user.png" margin-bottom="100" > -->
+                <img [src]="imagenPreview">
 
                 <h2 text-center>{{ kid.name }}</h2>
 
