@@ -6,6 +6,8 @@ import { KidService } from "../../services/kid/kid.service";
 import { ToastService } from "../../services/toast/toast.service";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { CargaArchivoProvider,  } from '../../providers/carga-archivo/carga-archivo';
+import { storage, initializeApp } from 'firebase'
+import { FIREBASE_CONFIG } from "../../app/firebase.credentials";
 
 @IonicPage()
 @Component({
@@ -25,12 +27,35 @@ export class AddKidImagePage {
               private toast: ToastService,
               private camara: Camera,
               private imageService: CargaArchivoProvider
-            ) {}
+            ) {initializeApp(FIREBASE_CONFIG)}
 
   ionViewDidLoad() {
     this.kid = this.navParams.get('kid');
     console.log(this.kid)
   }
+
+//   async takePhoto(){
+//      try{
+//
+//     const options: CameraOptions = {
+//       quality: 50,
+//       targetWidth: 600,
+//       targetHeight: 600,
+//       destinationType: this.camara.DestinationType.DATA_URL,
+//       encodingType: this.camara.MediaType.PICTURE
+//     }
+//
+//   const result = await this.camara.getPicture(options);
+//
+//   const image = `data:image/jpeg;base64,${result}`;
+//
+//   const pictures = storage().ref('pictures');
+//   pictures.putString(image, 'data_url');
+//   }
+//   catch (e) {
+//     console.error(e);
+//   }
+// }
 
   mostrar_camara() {
   const options: CameraOptions = {
@@ -58,18 +83,26 @@ crear_post(image: Foto){
        kidId: this.kid.key
      }
 
-     this.imageService.cargar_imagen_firebase(archivo);
-
-     this.imageService.addImage(archivo)
-     .then(ref => {
+     this.imageService.cargar_imagen_firebase(archivo).then(ref => {
        this.kids.editKid({
          lastName: this.kid.lastName,
          name: this.kid.name,
-         imageKey: ref.key
+         imageKey: archivo.img
        })
 
      });
    }
+
+   //   this.imageService.addImage(archivo)
+   //   .then(ref => {
+   //     this.kids.editKid({
+   //       lastName: this.kid.lastName,
+   //       name: this.kid.name,
+   //       imageKey: archivo.img
+   //     })
+   //
+   //   });
+   // }
 
    save(image: Foto) {
      if (this.imageService.getImages().subscribe((images: Foto[]) => {
