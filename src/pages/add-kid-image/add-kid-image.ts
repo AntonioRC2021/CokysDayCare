@@ -81,8 +81,7 @@ export class AddKidImagePage {
 crear_post(image: Foto){
 
      let archivo = {
-       img: this.imagen64,
-       kidId: this.kid.key
+       img: this.imagen64
      }
 
      this.imageService.cargar_imagen_firebase(archivo).then(ref => {
@@ -107,24 +106,19 @@ crear_post(image: Foto){
    // }
 
    save(image: Foto) {
-     if (this.imageService.getImages().subscribe((images: Foto[]) => {
-       for (let image of images){
-         if(image.kidId === this.kid.key){
-           this.image = image
-           // console.log(image)
-         }
-       }
-     }))
-     this.imageService.addImage(image)
-     .then(ref => {
-       this.kids.editKid({
-         lastName: this.kid.lastName,
-         name: this.kid.name,
-         imageKey: ref.key
-       }). then(ref =>{
-         console.log("el nino se actualizo", ref)
+     this.imageService.getImages().subscribe((images: Foto[]) => {
+       this.imageService.addImage(image)
+       .then(ref => {
+         this.kids.editKid({
+           lastName: this.kid.lastName,
+           name: this.kid.name,
+           imageKey: ref.key
+         }). then(ref =>{
+           console.log("el nino se actualizo", ref)
+         })
        })
      })
+
    }
 
 
