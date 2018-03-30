@@ -67,7 +67,7 @@ crear_post(image: Foto){
        this.kids.editKid({
          lastName: this.kid.lastName,
          name: this.kid.name,
-         imageKey: ref.key
+         imageKey: "12345"
        }).then(ref => {
          console.log("el nino se actualizo ", ref)
        })
