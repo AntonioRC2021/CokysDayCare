@@ -55,7 +55,7 @@ export class AddKidImagePage {
 
 
 
-crear_post(){
+crear_post(image: Foto){
 
      let archivo = {
        img: this.imagen64
@@ -63,7 +63,7 @@ crear_post(){
 
      this.imageService.cargar_imagen_firebase(archivo)
 
-     this.imageService.addImage(archivo).then(ref => {
+     this.imageService.addImage(image).then(ref => {
        this.kids.editKid({
          lastName: this.kid.lastName,
          name: this.kid.name,
