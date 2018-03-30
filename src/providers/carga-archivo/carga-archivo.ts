@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from 'ionic-angular';
 import { Foto } from "../../models/image/image.model";
+// import { KidService } from "../../services/kid/kid.service";
 
 import { AngularFireDatabase } from "angularfire2/database";
 import * as firebase from 'firebase';
@@ -13,7 +14,9 @@ export class CargaArchivoProvider {
   private ImageListRef = this.afDB.list<Foto>('image-list')
 
   constructor( public toastCtrl: ToastController,
-               public afDB: AngularFireDatabase) {
+               public afDB: AngularFireDatabase
+             // public KidService: KidService
+           ) {
     console.log('Hello CargaArchivoProvider Provider');
   }
 

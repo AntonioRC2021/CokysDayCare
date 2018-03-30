@@ -6,8 +6,10 @@ import { KidService } from "../../services/kid/kid.service";
 import { ToastService } from "../../services/toast/toast.service";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { CargaArchivoProvider,  } from '../../providers/carga-archivo/carga-archivo';
-// import { storage, initializeApp } from 'firebase'
-// import { FIREBASE_CONFIG } from "../../app/firebase.credentials";
+import { storage, initializeApp } from 'firebase'
+import { FIREBASE_CONFIG } from "../../app/firebase.credentials";
+import { AngularFireDatabase } from "angularfire2/database";
+
 
 @IonicPage()
 @Component({
@@ -20,13 +22,17 @@ export class AddKidImagePage {
   imagen64: string;
   image: Foto;
 
+  private ImageListRef = this.afDb.list<Foto>('image-list')
+
+
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private kids: KidService,
               private toast: ToastService,
               private camara: Camera,
-              private imageService: CargaArchivoProvider
+              private imageService: CargaArchivoProvider,
+              private afDb: AngularFireDatabase
             ) {}
           // ) {initializeApp(FIREBASE_CONFIG)}
 
@@ -36,63 +42,67 @@ export class AddKidImagePage {
     console.log(this.kid)
   }
 
-//   async takePhoto(){
-//      try{
-//
-//     const options: CameraOptions = {
-//       quality: 50,
-//       targetWidth: 600,
-//       targetHeight: 600,
-//       destinationType: this.camara.DestinationType.DATA_URL,
-//       encodingType: this.camara.MediaType.PICTURE
-//     }
-//
-//   const result = await this.camara.getPicture(options);
-//
-//   const image = `data:image/jpeg;base64,${result}`;
-//
-//   const pictures = storage().ref('pictures');
-//   pictures.putString(image, 'data_url');
-//   }
-//   catch (e) {
-//     console.error(e);
-//   }
-// }
+  async takePhoto(){
+     try{
 
-  mostrar_camara() {
-  const options: CameraOptions = {
-    quality: 50,
-    destinationType: this.camara.DestinationType.DATA_URL,
-    encodingType: this.camara.EncodingType.JPEG,
-    mediaType: this.camara.MediaType.PICTURE
+    const options: CameraOptions = {
+      quality: 50,
+      targetWidth: 600,
+      targetHeight: 600,
+      destinationType: this.camara.DestinationType.DATA_URL,
+      encodingType: this.camara.MediaType.PICTURE
+    }
+
+  const result = await this.camara.getPicture(options);
+
+  const image = `data:image/jpeg;base64,${result}`;
+
+  const pictures = storage().ref('pictures');
+  pictures.putString(image, 'data_url');
+
+  this.ImageListRef.push(result)
+
+
   }
-
-  this.camara.getPicture(options).then((imageData) => {
-    this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
-    this.imagen64 = imageData;
-  }, (err) => {
-    // Handle error
-    console.log( "ERROR EN CAMARA", JSON.stringify(err) );
-  });
+  catch (e) {
+    console.error(e);
+  }
 }
 
-
-
-crear_post(image: Foto){
-
-     let archivo = {
-       img: this.imagen64
-     }
-
-     this.imageService.cargar_imagen_firebase(archivo).then(ref => {
-       this.kids.editKid({
-         lastName: this.kid.lastName,
-         name: this.kid.name,
-         imageKey: archivo.img
-       })
-
-     });
-   }
+//   mostrar_camara() {
+//   const options: CameraOptions = {
+//     quality: 50,
+//     destinationType: this.camara.DestinationType.DATA_URL,
+//     encodingType: this.camara.EncodingType.JPEG,
+//     mediaType: this.camara.MediaType.PICTURE
+//   }
+//
+//   this.camara.getPicture(options).then((imageData) => {
+//     this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
+//     this.imagen64 = imageData;
+//   }, (err) => {
+//     // Handle error
+//     console.log( "ERROR EN CAMARA", JSON.stringify(err) );
+//   });
+// }
+//
+//
+//
+// crear_post(image: Foto){
+//
+//      let archivo = {
+//        img: this.imagen64
+//      }
+//
+//      this.imageService.cargar_imagen_firebase(archivo).then(ref => {
+//        this.kids.editKid({
+//          lastName: this.kid.lastName,
+//          name: this.kid.name,
+//          imageKey: archivo.img
+//        })
+//
+//      });
+//    }
 
    //   this.imageService.addImage(archivo)
    //   .then(ref => {
@@ -105,21 +115,21 @@ crear_post(image: Foto){
    //   });
    // }
 
-   save(image: Foto) {
-     this.imageService.getImages().subscribe((images: Foto[]) => {
-       this.imageService.addImage(image)
-       .then(ref => {
-         this.kids.editKid({
-           lastName: this.kid.lastName,
-           name: this.kid.name,
-           imageKey: ref.key
-         }). then(ref =>{
-           console.log("el nino se actualizo", ref)
-         })
-       })
-     })
+   // save(image: Foto) {
+   //   this.imageService.getImages().subscribe((images: Foto[]) => {
+   //     this.imageService.addImage(image)
+   //     .then(ref => {
+   //       this.kids.editKid({
+   //         lastName: this.kid.lastName,
+   //         name: this.kid.name,
+   //         imageKey: ref.key
+   //       }). then(ref =>{
+   //         console.log("el nino se actualizo", ref)
+   //       })
+   //     })
+   //   })
 
-   }
+   // }
 
 
 //
