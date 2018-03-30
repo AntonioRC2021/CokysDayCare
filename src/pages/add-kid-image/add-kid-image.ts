@@ -72,9 +72,16 @@ crear_post(image: Foto){
    }
 
    save(image: Foto) {
+     if (this.imageService.getImages().subscribe((images: Foto[]) => {
+       for (let image of images){
+         if(image.kidId === this.kid.key){
+           this.image = image
+           // console.log(image)
+         }
+       }
+     }))
      this.imageService.addImage(image)
      .then(ref => {
-       console.log(image)
        this.kids.editKid({
          lastName: this.kid.lastName,
          name: this.kid.name,
