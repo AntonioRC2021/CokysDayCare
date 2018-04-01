@@ -25,6 +25,15 @@ export class EditKidPage {
   image: Foto
   cdIn = false;
 
+
+  currentKidAssistences: Assist[] = [];
+  todayKidAssistences = [];
+
+  // todayAssistences = [];
+
+
+
+
   // foto: Foto;
 
   parentsList$: Observable<Parent[]>;
@@ -49,6 +58,11 @@ export class EditKidPage {
             }
 
   ionViewWillLoad() {
+    let today = new Date();
+    let currentYear = today.getFullYear()
+    let currentMonth = today.getMonth();
+    let currentDay = today.getDate();
+
     this.kid = this.navParams.get('kid');
     // this.parent = this.navParams.get('parent');
       if(this.kid) {
@@ -59,48 +73,84 @@ export class EditKidPage {
               }
             }
           })
-          if (this.edit.getAssists().subscribe((assists: Assist[]) => {
+          this.edit.getSecondParents().subscribe((secondParents: SecondParent[]) => {
+            for (let secondParent of secondParents ) {
+              if (secondParent.key === this.kid.secondParentId) {
+                this.secondParent = secondParent
+              }
+            }
+          })
+
+
+          this.edit.getAssists().subscribe((assists: Assist[]) => {
+            this.currentKidAssistences.forEach( a => {
+              let aDate = new Date(a.date);
+              let aYear = aDate.getFullYear()
+              let aMonth = aDate.getMonth();
+              let aDay = aDate.getDate()
+
+                if(a.kidId === this.kid.key &&
+                  aYear === currentYear &&
+                  aMonth === currentMonth &&
+                  aDay === currentDay ){
+                    this.todayKidAssistences.push(a);
+                    // console.log(todayKidAssistences)
+
+                }  })
+
             for (let assist of assists){
               if(assist.kidId === this.kid.key){
                 this.assist = assist
 
-                let kidAssist = this.assist
+                this.currentKidAssistences.push( this.assist );
 
-                // let today = new Date()
-
-
-
-                // console.log(kidAssist)
               }
             }
-          }))
-          if (this.imageService.getImages().subscribe((images: Foto[]) => {
-            for (let image of images){
-              if(image.kidId === this.kid.key){
-                this.image = image
-                // console.log(image)
-              }
-            }
-          }))
-              this.edit.getSecondParents().subscribe((secondParents: SecondParent[]) => {
-                for (let secondParent of secondParents ) {
-                  if (secondParent.key === this.kid.secondParentId) {
-                    this.secondParent = secondParent
-                  }
+
+            // console.log(this.currentKidAssistences);
+            // let todayKidAssistences = [];
+            // console.log(todayKidAssistences)
+
+            // function setButton(a) {
+            //   if(this.a.actionType === "checkIn"){
+            //     this.cdIn = true
+            //   } else if(this.a.actionType === "checkOut") {
+            //     this.cdIn = false
+            //   } else {
+            //     this.cdIn = null
+            //   }
+            // }
+
+              let mostRecentAssistence = this.todayKidAssistences[0]
+              // console.log(mostRecentAssistence)
+              for(let i = 1; i < this.todayKidAssistences.length; i ++ ){
+                if(mostRecentAssistence.date < this.todayKidAssistences[i]){
+                  mostRecentAssistence = this.todayKidAssistences[i];
+                  console.log(mostRecentAssistence);
+
                 }
-              })
+                // console.log(mostRecentAssistence);
+                // setButton(mostRecentAssistence)
+              }
+
+          }
+
+        )
+
+          // if (this.imageService.getImages().subscribe((images: Foto[]) => {
+          //   for (let image of images){
+          //     if(image.kidId === this.kid.key){
+          //       this.image = image
+          //       // console.log(image)
+          //     }
+          //   }
+          // }))
 
 
-         // this.getImageById(this.kid.imageKey)
-      //   this.imageService.getFotos().subscribe((fotos: Foto[]) => {
-      //   for (let foto of fotos ) {
-      //     if (foto.key === this.kid.imageKey) {
-      //       this.foto = foto
-      //     }
-      //   }
-      // })
-      }
+      {}}
   }
+
+
 
   checkIn(assist: Assist) {
 this.edit.addCheck(assist)
@@ -110,50 +160,12 @@ this.edit.addCheck(assist)
       parentId: this.parent.key,
       date: new Date().toString(),
       actionType: "checkIn"
-    })
-  }).then(() => this.cdIn = true)
+     })
+     .then(() => this.cdIn = true)
+  })
 
-// }).then( _ => {
-//   if (this.edit.getAssists().subscribe((assists: Assist[]) => {
-//     for (let assist of assists){
-//       if(assist.kidId === this.kid.key){
-//         this.assist = assist
-//
-//         let kidAssist = this.assist
-//
-//         let date = new Date();
-//
-//         date.getFullYear();
-//
-//         if (kidAssist === date){
-//           if(assist.actionType === "checkIn"){
-//             this.cdIn = false
-//           }
-//         }
-
-        // console.log(kidAssist)
-  //     }
-    // }
-  // })) {
-
-  // }
-// })
 // }).then(() => this.cdIn = true)
 
-
-  //   if(this.kid){
-  //     this.edit.addCheck(assist)
-  //       .then(ref => {
-  //         console.log(ref)
-  //       })
-  //   } else {
-  //
-  //
-  // }
-  // this.edit.editKid(this.kid).then((res) => {
-  //   this.kid.isChecked = true;
-  //   this.cdIn = true;
-  // })
 }
 
   checkOut(assist: Assist) {
@@ -164,23 +176,7 @@ this.edit.addCheck(assist)
           parentId: this.parent.key,
           date: new Date().toString(),
           actionType: "checkOut"
-        })
-        // .then(_ => {
-        //   if(this.kid) {
-        //     if (this.edit.getAssists().subscribe((assists: Assist[]) => {
-        //       for (let assist of assists){
-        //         if(assist.date === this.today.getDay().toString()){
-        //           if(this.assist.actionType === "checkOut"){
-        //             this.cdIn = false
-        //
-        //           }
-        //           // console.log(assist)
-        //         }
-        //       }
-        //     }))
-        //   console.log(_)}
-        // })
-      // }).then(() => this.cdIn = true)
+        }).then(() => this.cdIn = false)
 
       })
   //   // this.edit.editKid(this.kid).then((res) => {

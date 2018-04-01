@@ -35,7 +35,10 @@
               navPush="EditKidPage"
               [navParams]="{kid: kid}">
               <!-- <img src="assets/imgs/user.png" margin-bottom="100" > -->
-                <img [src]="imagenPreview">
+
+                <ion-card *ngIf="imagenPreview">
+                  <img [src]="imagenPreview">
+                </ion-card> 
 
                 <h2 text-center>{{ kid.name }}</h2>
 
