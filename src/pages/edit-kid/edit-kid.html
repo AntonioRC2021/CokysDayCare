@@ -94,7 +94,7 @@
                 ion-button
                 outline
                 block
-                [disabled]="cdIn"
+                [disabled]="isChecked"
                 (click)="checkIn()">
           Check In
         </button>
@@ -105,7 +105,7 @@
                 ion-button
                 outline
                 block
-                [disabled]="!cdIn"
+                [disabled]="!isChecked"
                 (click)="checkOut()"
                 color="danger">
           Check Out

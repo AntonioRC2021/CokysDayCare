@@ -23,7 +23,7 @@ export class EditKidPage {
   imagenPreview: string;
   assist: Assist;
   image: Foto
-  cdIn = false;
+  isChecked: boolean;
 
 
   currentKidAssistences: Assist[] = [];
@@ -111,31 +111,41 @@ export class EditKidPage {
             // let todayKidAssistences = [];
             // console.log(todayKidAssistences)
 
-            // function setButton(a) {
-            //   if(this.a.actionType === "checkIn"){
-            //     this.cdIn = true
-            //   } else if(this.a.actionType === "checkOut") {
-            //     this.cdIn = false
-            //   } else {
-            //     this.cdIn = null
-            //   }
-            // }
 
               let mostRecentAssistence = this.todayKidAssistences[0]
               // console.log(mostRecentAssistence)
               for(let i = 1; i < this.todayKidAssistences.length; i ++ ){
-                if(mostRecentAssistence.date < this.todayKidAssistences[i]){
+
+              const mostRecentDate = new Date(mostRecentAssistence.date)
+              const todayKidDate = new Date(this.todayKidAssistences[i].date)
+
+                if(mostRecentDate < todayKidDate){
                   mostRecentAssistence = this.todayKidAssistences[i];
                   console.log(mostRecentAssistence);
 
                 }
                 // console.log(mostRecentAssistence);
-                // setButton(mostRecentAssistence)
               }
+              this.setButton(mostRecentAssistence)
+
+
+              //
+              // function setButton(a) {
+              //   if(this.a.actionType === "checkIn"){
+              //     this.cdIn = true
+              //   } else if(this.a.actionType === "checkOut") {
+              //     this.cdIn = false
+              //   } else {
+              //     this.cdIn = null
+              //   }
+              // }
+
 
           }
 
         )
+
+
 
           // if (this.imageService.getImages().subscribe((images: Foto[]) => {
           //   for (let image of images){
@@ -147,7 +157,16 @@ export class EditKidPage {
           // }))
 
 
-      {}}
+      }
+  }
+
+
+  setButton(a) {
+    if(a.actionType === "checkIn"){
+      this.isChecked = true
+    } else if (a.actionType === "checkOut") {
+      this.isChecked = false
+    }
   }
 
 
@@ -160,8 +179,7 @@ this.edit.addCheck(assist)
       parentId: this.parent.key,
       date: new Date().toString(),
       actionType: "checkIn"
-     })
-     .then(() => this.cdIn = true)
+    }).then(() => this.isChecked = true)
   })
 
 // }).then(() => this.cdIn = true)
@@ -176,7 +194,7 @@ this.edit.addCheck(assist)
           parentId: this.parent.key,
           date: new Date().toString(),
           actionType: "checkOut"
-        }).then(() => this.cdIn = false)
+        }).then(() => this.isChecked = false)
 
       })
   //   // this.edit.editKid(this.kid).then((res) => {
