@@ -55,7 +55,7 @@ export class AddKidImagePage {
 
 
 
-crear_post(image: Foto){
+crear_post(){
 
      let archivo = {
        img: this.imagen64
