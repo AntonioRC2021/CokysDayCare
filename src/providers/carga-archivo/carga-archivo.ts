@@ -45,11 +45,10 @@ export class CargaArchivoProvider {
 
                       let url = uploadTask.snapshot.downloadURL;
 
-                      this.crear_post( url, nombreArchivo );
+                      this.crear_post( url, nombreArchivo ).then(ref => {
+                        resolve('2344555');
+                      });
 
-                      // this.addImage(archivo)
-
-                      resolve();
                     }
 
                   )
@@ -59,19 +58,19 @@ export class CargaArchivoProvider {
 
           }
 
-  private crear_post( url: string, nombreArchivo:string ){
+          private crear_post( url: string, nombreArchivo:string ){
 
-    let post: Foto = {
-      img: url,
-      key: nombreArchivo
-    };
+              let post: Foto = {
+                img: url,
+                key: nombreArchivo
+              };
 
-    console.log( JSON.stringify(post) );
+              console.log( JSON.stringify(post) );
 
-   return this.ImageListRef.push(post)
-
+              return this.ImageListRef.push(post);
+            }
     // this.ImageListRef(`/image-list/${ nombreArchivo }`).push(post);
-  }
+  
 
 //   addImage(image: Foto){
 //   return this.ImageListRef.push(image);

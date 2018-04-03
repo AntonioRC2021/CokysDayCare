@@ -55,23 +55,22 @@ export class AddKidImagePage {
 
 
 
-crear_post(){
+crear_post(image: Foto){
 
      let archivo = {
        img: this.imagen64
      }
 
-     this.imageService.cargar_imagen_firebase(archivo)
-     .then(ref => {
+     this.imageService.cargar_imagen_firebase(archivo).then(response => {
        this.kids.editKid({
          lastName: this.kid.lastName,
          name: this.kid.name,
-         imageKey: "12345"
+         imageKey: response.toString()
        }).then(ref => {
          console.log("el nino se actualizo ", ref)
        })
-
      });
+
    }
 
    //   this.imageService.addImage(archivo)
