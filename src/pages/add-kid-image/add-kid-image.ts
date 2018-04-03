@@ -6,8 +6,8 @@ import { KidService } from "../../services/kid/kid.service";
 import { ToastService } from "../../services/toast/toast.service";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { CargaArchivoProvider,  } from '../../providers/carga-archivo/carga-archivo';
-// import { storage, initializeApp } from 'firebase'
-// import { FIREBASE_CONFIG } from "../../app/firebase.credentials";
+import { storage, initializeApp } from 'firebase'
+import { FIREBASE_CONFIG } from "../../app/firebase.credentials";
 
 @IonicPage()
 @Component({
@@ -27,8 +27,7 @@ export class AddKidImagePage {
               private toast: ToastService,
               private camara: Camera,
               private imageService: CargaArchivoProvider
-            ) {}
-          // ) {initializeApp(FIREBASE_CONFIG)}
+             ) {initializeApp(FIREBASE_CONFIG)}
 
 
   ionViewDidLoad() {
@@ -36,41 +35,74 @@ export class AddKidImagePage {
     console.log(this.kid)
   }
 
-  mostrar_camara() {
-  const options: CameraOptions = {
-    quality: 50,
-    destinationType: this.camara.DestinationType.DATA_URL,
-    encodingType: this.camara.EncodingType.JPEG,
-    mediaType: this.camara.MediaType.PICTURE
+  async takePhoto() {
+   try {
+    const options: CameraOptions = {
+      quality: 50,
+      targetHeight: 600,
+      targetWidth: 600,
+      destinationType: this.camara.DestinationType.DATA_URL,
+      encodingType: this.camara.EncodingType.JPEG,
+      mediaType: this.camara.MediaType.PICTURE
+    }
+
+  const result =  await this.camara.getPicture(options)
+
+  const image = `data:image/jpeg;base64,${result}`;
+
+  const pictures = storage().ref('pictures/myPhoto');
+  pictures.putString(image, 'data_url');
+
+  }
+  catch (e) {
+    console.error(e)
+  }
   }
 
-  this.camara.getPicture(options).then((imageData) => {
-    this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
-    this.imagen64 = imageData;
-  }, (err) => {
-    // Handle error
-    console.log( "ERROR EN CAMARA", JSON.stringify(err) );
-  });
-}
 
 
 
-crear_post(){
 
-     let archivo = {
-       img: this.imagen64
-     }
 
-     this.imageService.cargar_imagen_firebase(archivo).then(response => {
-       this.kids.editKid({
-         lastName: this.kid.lastName,
-         name: this.kid.name,
-         imageKey: "response"
-       }).then(ref => {
-         console.log("el nino se actualizo ", ref)
-       })
-     });
 
-   }
+
+
+
+//   mostrar_camara() {
+//   const options: CameraOptions = {
+//     quality: 50,
+//     destinationType: this.camara.DestinationType.DATA_URL,
+//     encodingType: this.camara.EncodingType.JPEG,
+//     mediaType: this.camara.MediaType.PICTURE
+//   }
+//
+//   this.camara.getPicture(options).then((imageData) => {
+//     this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
+//     this.imagen64 = imageData;
+//   }, (err) => {
+//     // Handle error
+//     console.log( "ERROR EN CAMARA", JSON.stringify(err) );
+//   });
+// }
+//
+//
+//
+// crear_post(){
+//
+//      let archivo = {
+//        img: this.imagen64
+//      }
+//
+//      this.imageService.cargar_imagen_firebase(archivo).then(response => {
+//        this.kids.editKid({
+//          lastName: this.kid.lastName,
+//          name: this.kid.name,
+//          imageKey: "response"
+//        }).then(ref => {
+//          console.log("el nino se actualizo ", ref)
+//        })
+//      });
+//
+//    }
 
 }
