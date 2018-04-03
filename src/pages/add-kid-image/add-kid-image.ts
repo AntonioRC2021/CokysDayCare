@@ -27,7 +27,7 @@ export class AddKidImagePage {
               private toast: ToastService,
               private camara: Camera,
               private imageService: CargaArchivoProvider
-             ) {initializeApp(FIREBASE_CONFIG)}
+             ) {}
 
 
   ionViewDidLoad() {
