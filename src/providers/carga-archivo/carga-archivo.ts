@@ -70,11 +70,6 @@ export class CargaArchivoProvider {
               return this.ImageListRef.push(post);
             }
     // this.ImageListRef(`/image-list/${ nombreArchivo }`).push(post);
-  
-
-//   addImage(image: Foto){
-//   return this.ImageListRef.push(image);
-// }
 
   mostrar_toast(mensaje: string) {
 

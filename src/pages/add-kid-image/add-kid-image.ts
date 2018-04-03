@@ -55,7 +55,7 @@ export class AddKidImagePage {
 
 
 
-crear_post(image: Foto){
+crear_post(){
 
      let archivo = {
        img: this.imagen64
@@ -65,7 +65,7 @@ crear_post(image: Foto){
        this.kids.editKid({
          lastName: this.kid.lastName,
          name: this.kid.name,
-         imageKey: response.toString()
+         imageKey: "response"
        }).then(ref => {
          console.log("el nino se actualizo ", ref)
        })
@@ -73,53 +73,4 @@ crear_post(image: Foto){
 
    }
 
-   //   this.imageService.addImage(archivo)
-   //   .then(ref => {
-   //     this.kids.editKid({
-   //       lastName: this.kid.lastName,
-   //       name: this.kid.name,
-   //       imageKey: archivo.img
-   //     })
-   //
-   //   });
-   // }
-
-   // save(image: Foto) {
-   //   if (this.imageService.getImages().subscribe((images: Foto[]) => {
-   //     for (let image of images){
-   //       if(image.kidId === this.kid.key){
-   //         this.image = image
-   //         // console.log(image)
-   //       }
-   //     }
-   //   }))
-   //   this.imageService.addImage(image)
-   //   .then(ref => {
-   //     this.kids.editKid({
-   //       lastName: this.kid.lastName,
-   //       name: this.kid.name,
-   //       imageKey: ref.key
-   //     }). then(ref =>{
-   //       console.log("el nino se actualizo", ref)
-   //     })
-   //   })
-   // }
-
-
-//
-// save(image: Foto){
-//     console.log(image)
-//     this.imageService.addImage(image)
-//       .then(ref => {
-//           this.toast.show("added!");
-//           // this.navCtrl.setRoot('HomePage', { key: ref.key });
-//           this.kids.editKid({
-//          lastName: this.kid.lastName,
-//          name: this.kid.name,
-//          imageKey: ref.key,
-//           }).then(ref => {
-//             console.log("el nino se actualizo ", ref)
-//           })
-//     });
-  // }
 }
