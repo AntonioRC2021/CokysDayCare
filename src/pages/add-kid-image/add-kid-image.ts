@@ -62,12 +62,11 @@ crear_post(image: Foto){
      }
 
      this.imageService.cargar_imagen_firebase(archivo)
-
-     this.imageService.addImage(image).then(ref => {
+     .then(ref => {
        this.kids.editKid({
          lastName: this.kid.lastName,
          name: this.kid.name,
-         imageKey: ref.key
+         imageKey: "12345"
        }).then(ref => {
          console.log("el nino se actualizo ", ref)
        })
@@ -109,19 +108,19 @@ crear_post(image: Foto){
 
 
 //
-save(image: Foto){
-    console.log(image)
-    this.imageService.addImage(image)
-      .then(ref => {
-          this.toast.show("added!");
-          // this.navCtrl.setRoot('HomePage', { key: ref.key });
-          this.kids.editKid({
-         lastName: this.kid.lastName,
-         name: this.kid.name,
-         imageKey: ref.key,
-          }).then(ref => {
-            console.log("el nino se actualizo ", ref)
-          })
-    });
-  }
+// save(image: Foto){
+//     console.log(image)
+//     this.imageService.addImage(image)
+//       .then(ref => {
+//           this.toast.show("added!");
+//           // this.navCtrl.setRoot('HomePage', { key: ref.key });
+//           this.kids.editKid({
+//          lastName: this.kid.lastName,
+//          name: this.kid.name,
+//          imageKey: ref.key,
+//           }).then(ref => {
+//             console.log("el nino se actualizo ", ref)
+//           })
+//     });
+  // }
 }

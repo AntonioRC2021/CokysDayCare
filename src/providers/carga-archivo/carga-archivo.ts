@@ -49,7 +49,7 @@ export class CargaArchivoProvider {
 
                       this.crear_post( url, nombreArchivo );
 
-                      this.addImage(archivo)
+                      // this.addImage(archivo)
 
                       resolve();
                     }
@@ -78,9 +78,9 @@ export class CargaArchivoProvider {
 
   }
 
-  addImage(image: Foto){
-  return this.ImageListRef.push(image);
-}
+//   addImage(image: Foto){
+//   return this.ImageListRef.push(image);
+// }
 
   mostrar_toast(mensaje: string) {
 
