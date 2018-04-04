@@ -80,6 +80,14 @@ export class EditKidPage {
               }
             }
           })
+          // if (this.edit.getImages().subscribe((images: Foto[]) => {
+          //   for (let image of images){
+          //     if(image.key === this.kid.imageKey){
+          //       this.image = image
+          //       // console.log(image)
+          //     }
+          //   }
+          // }))
 
 
           this.edit.getAssists().subscribe((assists: Assist[]) => {
@@ -147,14 +155,7 @@ export class EditKidPage {
 
 
 
-          // if (this.imageService.getImages().subscribe((images: Foto[]) => {
-          //   for (let image of images){
-          //     if(image.kidId === this.kid.key){
-          //       this.image = image
-          //       // console.log(image)
-          //     }
-          //   }
-          // }))
+
 
 
       }

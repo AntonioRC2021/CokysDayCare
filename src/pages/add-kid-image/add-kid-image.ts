@@ -37,7 +37,7 @@ export class AddKidImagePage {
     console.log(this.kid)
   }
 
-  async takePhoto() {
+  async takePhoto(image: Foto) {
    try {
     const options: CameraOptions = {
       quality: 50,
@@ -62,7 +62,7 @@ export class AddKidImagePage {
          parentId: this.kid.parentId,
          key: this.kid.key,
          imageKey: ref.downloadURL
-          })
+       })
   // .then(
   //   this.kids.addImage(image)
   // )
