@@ -58,6 +58,8 @@ export class AddKidImagePage {
       this.kids.editKid({
                lastName: this.kid.lastName,
                name: this.kid.name,
+               parentId: this.kid.parentId,
+               secondParentId: this.kid.secondParentId,
                imageKey: ref.downloadURL
       })
   })
