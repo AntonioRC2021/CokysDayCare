@@ -53,7 +53,7 @@ export class AddKidImagePage {
   const image = `data:image/jpeg;base64,${result}`;
 
   const pictures = storage().ref('pictures/myPhoto');
-  pictures.putString(image, 'data_url')
+  return pictures.putString(image, 'data_url')
   .then(ref => {
       this.kids.editKid({
                lastName: this.kid.lastName,
