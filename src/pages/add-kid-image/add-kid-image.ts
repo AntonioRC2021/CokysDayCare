@@ -58,7 +58,7 @@ export class AddKidImagePage {
       this.kids.editKid({
                lastName: this.kid.lastName,
                name: this.kid.name,
-               imageKey: "12345"
+               imageKey: ref.downloadURL
       })
   })
 
@@ -69,23 +69,23 @@ export class AddKidImagePage {
   }
 
 
-  selectPhoto() {
-    let options:ImagePickerOptions = {
-      quality: 70,
-      outputType: 1,
-      maximumImagesCount: 1
-    }
-
-    this.imagePicker.getPictures(options).then((results) => {
-      for (var i = 0; i < results.length; i++) {
-        // console.log('Image URI: ' + results[i]);
-        this.imagenPreview = 'data:image/jpeg;base64,' + results[i];
-      }
-    }, (err) => {
-      console.log( "ERROR en selector", JSON.stringify(err) );
-
-    });
-  }
+  // selectPhoto() {
+  //   let options:ImagePickerOptions = {
+  //     quality: 70,
+  //     outputType: 1,
+  //     maximumImagesCount: 1
+  //   }
+  //
+  //   this.imagePicker.getPictures(options).then((results) => {
+  //     for (var i = 0; i < results.length; i++) {
+  //       // console.log('Image URI: ' + results[i]);
+  //       this.imagenPreview = 'data:image/jpeg;base64,' + results[i];
+  //     }
+  //   }, (err) => {
+  //     console.log( "ERROR en selector", JSON.stringify(err) );
+  //
+  //   });
+  // }
 
 
 
