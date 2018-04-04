@@ -56,13 +56,12 @@ export class AddKidImagePage {
   return pictures.putString(image, 'data_url')
   .then ( ref => {
           this.toast.show(`${ref.downloadURL} added!`);
-          // this.navCtrl.setRoot('HomePage', { key: ref.key });
           this.kids.editKid({
          lastName: this.kid.lastName,
          name: this.kid.name,
          parentId: this.kid.parentId,
          key: this.kid.key,
-         imageKey: this.image.key
+         imageKey: ref.downloadURL
           })
   // .then(
   //   this.kids.addImage(image)
