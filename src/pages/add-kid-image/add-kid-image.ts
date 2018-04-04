@@ -55,7 +55,7 @@ export class AddKidImagePage {
   const pictures = storage().ref('pictures/myPhoto');
   pictures.putString(image, 'data_url')
   .then(ref => {
-      this.toast.show("tony:" + ref);
+      this.toast.show("tony:" + JSON.stringify(ref));
   });
 
   }
