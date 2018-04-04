@@ -5,7 +5,8 @@ import { Foto } from "../../models/image/image.model";
 import { KidService } from "../../services/kid/kid.service";
 import { ToastService } from "../../services/toast/toast.service";
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { CargaArchivoProvider,  } from '../../providers/carga-archivo/carga-archivo';
+import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
+// import { CargaArchivoProvider,  } from '../../providers/carga-archivo/carga-archivo';
 import { storage, initializeApp } from 'firebase'
 import { FIREBASE_CONFIG } from "../../app/firebase.credentials";
 
@@ -16,8 +17,8 @@ import { FIREBASE_CONFIG } from "../../app/firebase.credentials";
 })
 export class AddKidImagePage {
   kid: Kid;
-  imagenPreview: string;
-  imagen64: string;
+  // imagenPreview: string;
+  // imagen64: string;
   image: Foto;
 
 
@@ -26,7 +27,8 @@ export class AddKidImagePage {
               private kids: KidService,
               private toast: ToastService,
               private camara: Camera,
-              private imageService: CargaArchivoProvider
+              private imagePicker: ImagePicker
+              // private imageService: CargaArchivoProvider
              ) {}
 
 
@@ -51,13 +53,21 @@ export class AddKidImagePage {
   const image = `data:image/jpeg;base64,${result}`;
 
   const pictures = storage().ref('pictures/myPhoto');
-  pictures.putString(image, 'data_url');
+  pictures.putString(image, 'data_url')
+  .then(ref => {
+      this.toast.show(`${ref} added!`);
+  });
 
   }
-  catch (e) {
-    console.error(e)
+    catch (e) {
+      console.error(e)
+    }
   }
-  }
+
+
+  // selectImage() {
+  //
+  // }
 
 
 

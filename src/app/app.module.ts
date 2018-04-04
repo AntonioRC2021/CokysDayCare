@@ -4,13 +4,17 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AngularFireModule } from 'angularfire2';
+
 import { FIREBASE_CONFIG } from './firebase.credentials';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+
 import { KidService } from "../services/kid/kid.service";
 import { ToastService } from "../services/toast/toast.service";
-import { Camera } from '@ionic-native/camera';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { ParentImageService } from "../services/parentImage/parent-image.service";
+
+import { Camera } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
 
 import 'rxjs/add/operator/map';
 
@@ -48,7 +52,8 @@ import { AuthService } from '../services/auth';
     Camera,
     CargaArchivoProvider,
     AuthService,
-    ParentImageService
+    ParentImageService,
+    ImagePicker
   ]
 })
 export class AppModule {}
