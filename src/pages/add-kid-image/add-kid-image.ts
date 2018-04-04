@@ -52,7 +52,7 @@ export class AddKidImagePage {
 
   const image = `data:image/jpeg;base64,${result}`;
 
-  const pictures = storage().ref('pictures');
+  const pictures = storage().ref().child(`pictures/${ image }`);
   return pictures.putString(image, 'data_url')
   .then ( ref => {
           this.toast.show(`${ref.downloadURL} added!`);
