@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from "rxjs/Rx";
 import { Kid } from "./../../models/kid/kid.model";
+import { Foto } from "./../../models/image/image.model";
 import { Parent } from "./../../models/parent/parent.model";
 import { SecondParent } from "./../../models/second-parent/second-parent.model";
 import { Assist } from "./../../models/attendance/attendance.model";
@@ -10,6 +11,8 @@ import { Assist } from "./../../models/attendance/attendance.model";
 export class KidService {
 
   private KidListRef = this.db.list<Kid>('kid-list')
+
+  private ImageListRef = this.db.list<Foto>('image-list')
 
   private ParentListRef = this.db.list<Parent>('parent-list')
 
@@ -74,6 +77,10 @@ addParent(parent: Parent){
   return this.ParentListRef.push(parent);
 }
 
+addImage(image: Foto){
+  return this.ImageListRef.push(image);
+}
+
 editKid(kid: Kid) {
   return this.KidListRef.update(kid.key, kid);
 }
@@ -92,6 +99,18 @@ editKid(kid: Kid) {
 
   getParents() {
     return this.ParentListRef
+      .snapshotChanges()
+      .map(
+      changes => {
+        return changes.map(c => ({
+          key: c.payload.key, ...c.payload.val()
+        }))
+      }
+    )
+  }
+
+  getImages() {
+    return this.ImageListRef
       .snapshotChanges()
       .map(
       changes => {

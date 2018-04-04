@@ -54,17 +54,30 @@ export class AddKidImagePage {
 
   const pictures = storage().ref('pictures/myPhoto');
   return pictures.putString(image, 'data_url')
-  .then(ref => {
-      this.kids.editKid({
-               lastName: this.kid.lastName,
-               name: this.kid.name,
-               parentId: this.kid.parentId,
-               secondParentId: this.kid.secondParentId,
-               imageKey: ref.downloadURL
-      })
-  })
+  .then ( ref => {
+          this.toast.show(`${ref.downloadURL} added!`);
+          // this.navCtrl.setRoot('HomePage', { key: ref.key });
+          this.kids.editKid({
+         lastName: this.kid.lastName,
+         name: this.kid.name,
+         parentId: this.kid.parentId,
+         key: this.kid.key,
+         imageKey: this.image.key
+          })
+  // .then(
+  //   this.kids.addImage(image)
+  // )
+  // .then(ref => {
+  //     this.kids.editKid({
+  //              lastName: this.kid.lastName,
+  //              name: this.kid.name,
+  //              parentId: this.kid.parentId,
+  //              secondParentId: this.kid.secondParentId,
+  //              imageKey: ref.
+  //     })
+  // })
 
-  }
+}) }
     catch (e) {
       console.error(e)
     }
