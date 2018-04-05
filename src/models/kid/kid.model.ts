@@ -7,4 +7,6 @@ export interface Kid {
   parentId?: string;
   secondParentId?: string;
   imageKey?: string;
+  parentImageKey?: string;
+  secondParentImageKey?: string;
 }
