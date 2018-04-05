@@ -7,6 +7,7 @@ import { KidService } from "../../services/kid/kid.service";
 import { ToastService } from "../../services/toast/toast.service";
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
+// import { CargaArchivoProvider,  } from '../../providers/carga-archivo/carga-archivo';
 import { storage, initializeApp } from 'firebase'
 import { FIREBASE_CONFIG } from "../../app/firebase.credentials";
 
@@ -19,6 +20,7 @@ export class AddParentImagePage {
   kid: Kid;
   parent: Parent;
   imagenPreview: string;
+  // imagen64: string;
   image: Foto;
 
 
@@ -28,6 +30,7 @@ export class AddParentImagePage {
               private toast: ToastService,
               private camara: Camera,
               private imagePicker: ImagePicker
+              // private imageService: CargaArchivoProvider
              ) {}
 
 
@@ -51,12 +54,13 @@ export class AddParentImagePage {
 
   const image = `data:image/jpeg;base64,${result}`;
 
-  const pictures = storage().ref().child("parentPictures/myphoto").putString(image, 'data_url', {contentType: 'image/jpeg'})
+  const pictures = storage().ref().child("pictures/myphoto").putString(image, 'data_url', {contentType: 'image/jpeg'})
   .then ( ref => {
           this.toast.show(`${ref.downloadURL} added!`);
-          this.kids.editParent({
-         lastName: this.parent.lastName,
-         name: this.parent.name,
+          this.kids.editKid({
+         lastName: this.kid.lastName,
+         name: this.kid.name,
+         key: this.kid.key,
          imageKey: ref.downloadURL
        })
 
