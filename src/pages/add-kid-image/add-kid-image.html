@@ -2,50 +2,14 @@
 
   <ion-navbar color="primary">
     <ion-title>Add Image</ion-title>
-    <!-- <ion-buttons end>
-      <button ion-button
-              (click)="crear_post(archivo)">
-              Crear post
-      </button>
-    </ion-buttons> -->
   </ion-navbar>
 
 </ion-header>
 
-<ion-content padding>
-
-  <button ion-button (click)="takePhoto()">Take Photo</button>
-
-  <!-- <button ion-button
-          item-left
-          block
-          (click)="selectPhoto()">
-          <ion-icon name="photos"></ion-icon>
-          Select
-  </button> -->
-
-  <!-- <img src=""> -->
-
-  <!-- <ion-card *ngIf="imagenPreview">
-    <img [src]="imagenPreview">
-  </ion-card> -->
-
-     <!-- <button ion-button
-            block
-            item-left
-            (click)="mostrar_camara()">
-    <ion-icon name="camera"></ion-icon>
-        Camara
-    </button>
-
-    <button ion-button
-            block
-            clear
-            (click)="save(image)">
-        Save
-    </button> -->
-
-
-
-
+<ion-content padding text-center>
+   <button ion-button
+           navPush="HomePage"
+           (click)="takePhoto()">
+      Take Photo
+   </button>
 </ion-content>
