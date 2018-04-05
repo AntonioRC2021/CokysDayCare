@@ -52,10 +52,10 @@ export class AddKidImagePage {
 
   const image = `data:image/jpeg;base64,${result}`;
 
-  const pictures = storage().ref().child(`pictures/${ image }`);
+  const pictures = storage().ref().child(`pictures/${ result }`);
   return pictures.putString(image, 'data_url')
   .then ( ref => {
-          this.toast.show(`${ref.metadata} added!`);
+          this.toast.show(`${ref.downloadURL} added!`);
           this.kids.editKid({
          lastName: this.kid.lastName,
          name: this.kid.name,
