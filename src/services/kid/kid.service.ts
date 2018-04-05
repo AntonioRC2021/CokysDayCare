@@ -85,6 +85,14 @@ editKid(kid: Kid) {
   return this.KidListRef.update(kid.key, kid);
 }
 
+editParent(parent: Parent) {
+  return this.ParentListRef.update(parent.key, parent);
+}
+
+editSecondParent(secondParent: SecondParent) {
+  return this.SecondParentListRef.update(secondParent.key, secondParent);
+}
+
   getKids() {
     return this.KidListRef
       .snapshotChanges()

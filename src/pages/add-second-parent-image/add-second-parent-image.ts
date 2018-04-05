@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Kid } from "../../models/kid/kid.model";
-import { Parent } from "../../models/parent/parent.model";
+import { SecondParent } from "../../models/second-parent/second-parent.model";
 import { Foto } from "../../models/image/image.model";
 import { KidService } from "../../services/kid/kid.service";
 import { ToastService } from "../../services/toast/toast.service";
@@ -12,12 +12,12 @@ import { FIREBASE_CONFIG } from "../../app/firebase.credentials";
 
 @IonicPage()
 @Component({
-  selector: 'page-add-parent-image',
-  templateUrl: 'add-parent-image.html',
+  selector: 'page-add-kid-image',
+  templateUrl: 'add-kid-image.html',
 })
-export class AddParentImagePage {
+export class AddSecondParentImagePage {
   kid: Kid;
-  parent: Parent;
+  secondParent: SecondParent;
   imagenPreview: string;
   image: Foto;
 
@@ -51,12 +51,12 @@ export class AddParentImagePage {
 
   const image = `data:image/jpeg;base64,${result}`;
 
-  const pictures = storage().ref().child("parentPictures/myphoto").putString(image, 'data_url', {contentType: 'image/jpeg'})
+  const pictures = storage().ref().child("secondParentPictures/myphoto").putString(image, 'data_url', {contentType: 'image/jpeg'})
   .then ( ref => {
           this.toast.show(`${ref.downloadURL} added!`);
           this.kids.editParent({
-         lastName: this.parent.lastName,
-         name: this.parent.name,
+         lastName: this.secondParent.lastName,
+         name: this.secondParent.name,
          imageKey: ref.downloadURL
        })
 
