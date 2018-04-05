@@ -54,7 +54,7 @@ export class AddParentImagePage {
 
   const image = `data:image/jpeg;base64,${result}`;
 
-  const pictures = storage().ref().child("pictures/myphoto").putString(image, 'data_url', {contentType: 'image/jpeg'})
+  const pictures = storage().ref().child(`pictures/${this.kid.name}"`).putString(image, 'data_url', {contentType: 'image/jpeg'})
   .then ( ref => {
           this.toast.show(`${ref.downloadURL} added!`);
           this.kids.editKid({
