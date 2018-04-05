@@ -59,6 +59,8 @@ export class AddSecondParentImagePage {
           this.kids.editKid({
          lastName: this.secondParent.lastName,
          name: this.secondParent.name,
+         key: this.kid.key,
+         secondParentId: this.kid.secondParentId,
          secondParentImageKey: ref.downloadURL
        })
 
