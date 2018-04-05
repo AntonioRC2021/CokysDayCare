@@ -12,8 +12,8 @@ import { FIREBASE_CONFIG } from "../../app/firebase.credentials";
 
 @IonicPage()
 @Component({
-  selector: 'page-add-kid-image',
-  templateUrl: 'add-kid-image.html',
+  selector: 'page-add-second-parent-image',
+  templateUrl: 'add-second-parent-image.html',
 })
 export class AddSecondParentImagePage {
   kid: Kid;
@@ -33,7 +33,9 @@ export class AddSecondParentImagePage {
 
   ionViewDidLoad() {
     this.kid = this.navParams.get('kid');
+    this.secondParent = this.navParams.get('secondParent');
     console.log(this.kid)
+    console.log(this.secondParent)
   }
 
   async takePhoto(image: Foto) {
@@ -51,13 +53,13 @@ export class AddSecondParentImagePage {
 
   const image = `data:image/jpeg;base64,${result}`;
 
-  const pictures = storage().ref().child("secondParentPictures/myphoto").putString(image, 'data_url', {contentType: 'image/jpeg'})
+  const pictures = storage().ref().child(`secondParentPictures/${this.kid.secondParentId}`).putString(image, 'data_url', {contentType: 'image/jpeg'})
   .then ( ref => {
           this.toast.show(`${ref.downloadURL} added!`);
-          this.kids.editParent({
+          this.kids.editKid({
          lastName: this.secondParent.lastName,
          name: this.secondParent.name,
-         imageKey: ref.downloadURL
+         secondParentImageKey: ref.downloadURL
        })
 
 }) }
