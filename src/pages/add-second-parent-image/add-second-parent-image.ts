@@ -57,8 +57,8 @@ export class AddSecondParentImagePage {
   .then ( ref => {
           this.toast.show(`${ref.downloadURL} added!`);
           this.kids.editKid({
-         lastName: this.secondParent.lastName,
-         name: this.secondParent.name,
+         lastName: this.kid.lastName,
+         name: this.kid.name,
          key: this.kid.key,
          secondParentId: this.kid.secondParentId,
          secondParentImageKey: ref.downloadURL
