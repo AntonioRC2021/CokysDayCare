@@ -3,13 +3,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Kid } from '../../models/kid/kid.model';
 import { Assist } from '../../models/attendance/attendance.model';
 import { Foto } from "./../../models/image/image.model";
-// import { Foto } from '../../models/image/image.model';
 import { Parent } from '../../models/parent/parent.model';
 import { SecondParent } from '../../models/second-parent/second-parent.model';
 import { KidService } from '../../services/kid/kid.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { Observable } from 'rxjs/Observable';
-import { CargaArchivoProvider,  } from '../../providers/carga-archivo/carga-archivo';
 
 @IonicPage()
 @Component({
@@ -20,21 +18,13 @@ export class EditKidPage {
   kid: Kid;
   parent: Parent;
   secondParent:SecondParent;
-  imagenPreview: string;
   assist: Assist;
-  image: Foto
-  isChecked: boolean;
+  image: Foto;
+  isChecked:boolean;
 
 
   currentKidAssistences: Assist[] = [];
   todayKidAssistences = [];
-
-  // todayAssistences = [];
-
-
-
-
-  // foto: Foto;
 
   parentsList$: Observable<Parent[]>;
 
@@ -47,14 +37,9 @@ export class EditKidPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private edit: KidService,
-              private toast: ToastService,
-
-              private imageService: CargaArchivoProvider
+              private toast: ToastService
             ) {
               this.assistsList$ = this.edit.getAssists();
-              this.imagesList$ = this.imageService.getImages();
-
-
             }
 
   ionViewWillLoad() {
@@ -73,6 +58,10 @@ export class EditKidPage {
               }
             }
           })
+
+        }
+
+      if(this.kid) {
           this.edit.getSecondParents().subscribe((secondParents: SecondParent[]) => {
             for (let secondParent of secondParents ) {
               if (secondParent.key === this.kid.secondParentId) {
@@ -80,17 +69,23 @@ export class EditKidPage {
               }
             }
           })
-          // if (this.edit.getImages().subscribe((images: Foto[]) => {
-          //   for (let image of images){
-          //     if(image.key === this.kid.imageKey){
-          //       this.image = image
-          //       // console.log(image)
-          //     }
-          //   }
-          // }))
+        }
 
+
+        if(this.kid) {
 
           this.edit.getAssists().subscribe((assists: Assist[]) => {
+
+
+            for (let assist of assists){
+              if(assist.kidId === this.kid.key){
+                this.assist = assist
+
+                this.currentKidAssistences.push( this.assist );
+
+              }
+            }
+
             this.currentKidAssistences.forEach( a => {
               let aDate = new Date(a.date);
               let aYear = aDate.getFullYear()
@@ -102,18 +97,9 @@ export class EditKidPage {
                   aMonth === currentMonth &&
                   aDay === currentDay ){
                     this.todayKidAssistences.push(a);
-                    // console.log(todayKidAssistences)
+                    console.log(a)
 
                 }  })
-
-            for (let assist of assists){
-              if(assist.kidId === this.kid.key){
-                this.assist = assist
-
-                this.currentKidAssistences.push( this.assist );
-
-              }
-            }
 
             // console.log(this.currentKidAssistences);
             // let todayKidAssistences = [];
@@ -129,7 +115,7 @@ export class EditKidPage {
 
                 if(mostRecentDate < todayKidDate){
                   mostRecentAssistence = this.todayKidAssistences[i];
-                  console.log(mostRecentAssistence);
+                  // console.log(mostRecentAssistence);
 
                 }
                 // console.log(mostRecentAssistence);
@@ -153,13 +139,9 @@ export class EditKidPage {
 
         )
 
-
-
-
-
-
+}
       }
-  }
+
 
 
   setButton(a) {
@@ -167,9 +149,10 @@ export class EditKidPage {
       this.isChecked = true
     } else if (a.actionType === "checkOut") {
       this.isChecked = false
+    } else {
+      this.isChecked = null
     }
   }
-
 
 
   checkIn(assist: Assist) {
