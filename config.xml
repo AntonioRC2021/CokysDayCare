@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.antoniocalderon" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>CokysDayCare</name>
-    <description>An awesome daycare app</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+<widget id="com.antoniocalderon" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Coky's DayCare</name>
+    <description>An app to check the attendances of a daycare</description>
+    <author email="tonymike20@hotmail.com" href="https://www.facebook.com/antonio.calderon.735">Antonio Calderon</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

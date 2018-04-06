@@ -6,7 +6,6 @@ import { Foto } from "../../models/image/image.model";
 import { KidService } from "../../services/kid/kid.service";
 import { ToastService } from "../../services/toast/toast.service";
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 import { storage, initializeApp } from 'firebase'
 import { FIREBASE_CONFIG } from "../../app/firebase.credentials";
 
@@ -26,8 +25,7 @@ export class AddSecondParentImagePage {
               public navParams: NavParams,
               private kids: KidService,
               private toast: ToastService,
-              private camara: Camera,
-              private imagePicker: ImagePicker
+              private camara: Camera
              ) {}
 
 

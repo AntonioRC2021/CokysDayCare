@@ -11,15 +11,12 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { KidService } from "../services/kid/kid.service";
 import { ToastService } from "../services/toast/toast.service";
-import { ParentImageService } from "../services/parentImage/parent-image.service";
 
 import { Camera } from '@ionic-native/camera';
-import { ImagePicker } from '@ionic-native/image-picker';
 
 import 'rxjs/add/operator/map';
 
 import { MyApp } from './app.component';
-import { CargaArchivoProvider } from '../providers/carga-archivo/carga-archivo';
 import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { AuthService } from '../services/auth';
@@ -50,10 +47,7 @@ import { AuthService } from '../services/auth';
     KidService,
     ToastService,
     Camera,
-    CargaArchivoProvider,
     AuthService,
-    ParentImageService,
-    ImagePicker
   ]
 })
 export class AppModule {}
