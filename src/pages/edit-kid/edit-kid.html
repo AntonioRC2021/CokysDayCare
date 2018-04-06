@@ -38,7 +38,7 @@
   <ion-row>
     <ion-col col-6 text-center>
       <!-- *ngIf="kid.parentImageKey" -->
-      <ion-avatar item-start>
+      <ion-avatar item-start *ngIf="kid.parentImageKey">
         <img [src]="kid.parentImageKey">
       </ion-avatar>
       <button *ngIf="parent" ion-button clear>
@@ -72,7 +72,7 @@
 
 
 <!-- *ngIf="secondParent" -->
-       <ion-avatar item-start>
+       <ion-avatar item-start *ngIf="kid.secondParentImageKey">
          <img [src]="kid.secondParentImageKey">
        </ion-avatar>
        <button *ngIf="secondParent" ion-button clear >
@@ -84,7 +84,7 @@
         </button>
 
         <button
-          *ngIf="secondParent && !kid.secondParentImage"
+          *ngIf="secondParent && !kid.secondParentImageKey"
           ion-button
           outline
           navPush="AddSecondParentImagePage"
