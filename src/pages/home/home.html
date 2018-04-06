@@ -36,9 +36,9 @@
               [navParams]="{kid: kid}">
               <!-- <img src="assets/imgs/user.png" margin-bottom="100" > -->
 
-                <ion-card *ngIf="imagenPreview">
-                  <img [src]="imagenPreview">
-                </ion-card> 
+              <ion-card *ngIf="kid.imageKey">
+                <img [src]="kid.imageKey">
+              </ion-card>
 
                 <h2 text-center>{{ kid.name }}</h2>
 
